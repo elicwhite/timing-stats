@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "bootstrap": "^3.3.7",
-    "http-server": "^0.9.0"
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
   },
   "scripts": {
-    "copy-bootstrap": "rm -rf dist/css && mkdir dist/css && cp -R node_modules/bootstrap/dist/css/* dist/css",
-    "start": "yarn copy-bootstrap && http-server dist"
+    "copy:bootstrap": "rm -rf dist/css && mkdir dist/css && cp -R node_modules/bootstrap/dist/css/* dist/css",
+    "copy": "yarn copy:bootstrap",
+    "build:js": "webpack",
+    "build": "yarn build:js",
+    "start": "yarn copy && yarn build && webpack-dev-server --progress --colors --hot --content-base dist/"
   }
 }
