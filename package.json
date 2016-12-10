@@ -5,6 +5,7 @@
   "license": "MIT",
   "devDependencies": {
     "bootstrap": "^3.3.7",
+    "d3": "^3.5.17",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
   },
