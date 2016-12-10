@@ -1,0 +1,14 @@
+{
+  "name": "timing-stats",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "http-server": "^0.9.0"
+  },
+  "scripts": {
+    "copy-bootstrap": "rm -rf dist/css && mkdir dist/css && cp -R node_modules/bootstrap/dist/css/* dist/css",
+    "start": "yarn copy-bootstrap && http-server dist"
+  }
+}
