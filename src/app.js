@@ -1,7 +1,8 @@
 'use strict';
 
 const fixtureData = require('./fixture_data');
-const criticalPathChart = require('./critical_path_chart');
+const stackedChart = require('./stacked_chart');
+const ganttChart = require('./gantt_chart');
 const dataFactory = require('./data_factory');
 
 const App = {
@@ -12,7 +13,8 @@ const App = {
 
     const stageData = dataFactory.from(fixtureData);
 
-    criticalPathChart.run(stageData);
+    stackedChart.run(stageData);
+    ganttChart.run(stageData);
   }
 };
 
