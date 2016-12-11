@@ -61,11 +61,16 @@ DataFactory._StageData = class StageData {
       throw new Error('no group found with that id');
     }
 
-    return this._normalizeStages(group[0].stages);
+    return this._normalizeStages(group[0].stages)
+    .sort((stage1, stage2) => {
+      return stage2.start - stage1.start;
+    });
   }
 
   _normalizeStages(stages) {
-    const startTime = stages[0].start;
+    const startTime = stages.reduce((prev, stage) => {
+      return Math.min(prev, stage.start);
+    }, stages[0].start);
 
     return stages.map(stage => {
       stage.start = stage.start - startTime;

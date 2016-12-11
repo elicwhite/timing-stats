@@ -17,44 +17,39 @@ const GanttChart = {
     var g = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
-        y = d3.scaleLinear().rangeRound([height, 0]);
+    var x = d3.scaleLinear().rangeRound([0, width]),
+        y = d3.scaleBand().rangeRound([height, 0]).padding(0.1);
 
-    x.domain(data.map(function(stage) { return stage.stage; }));
-    y.domain([0, d3.max(data, function(stage) { return stage.end; })]);
+    var color = d3.scaleOrdinal(d3.schemeCategory10)
+      .domain(stageData.getStages());
+
+    x.domain([0, d3.max(data, function(stage) { return stage.end; })]);
+    y.domain(data.map(function(stage) { return stage.stage; }));
 
     g.append("g")
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
-
-    g.append("g")
-        .attr("class", "axis axis--y")
-        .call(d3.axisLeft(y).ticks(10))
-      .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", "0.71em")
-        .attr("text-anchor", "end")
-        .text("Frequency");
+        .call(d3.axisBottom(x).ticks(10));
 
     g.selectAll(".bar")
       .data(data)
       .enter().append("rect")
         .attr("class", "bar")
-        .attr("x", function(d) { return x(d.stage); })
-        .attr("y", function(d) {
-          console.log(d);
-          // debugger;
-          // return height - (y(d.start) - y(d.end));
-          // return height - y(d.end);
-          return y(d.end);
+        .attr("y", function(d) { return y(d.stage); })
+        .attr("x", function(d) {
+          return x(d.start);
         })
-        .attr("width", x.bandwidth())
-        .attr("height", function(d) {
-          return y(d.start) - y(d.end);
-          // return height - y(d.end) - y(d.start);
-        });
+        .attr("height", y.bandwidth())
+        .attr("width", function(d) {
+          return x(d.end) - x(d.start);
+        })
+        .attr("rx", 5)
+        .attr("ry", 5)
+        .style("fill", function(d) { return color(d.stage); });
+
+    g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisRight(y));
   }
 };
 

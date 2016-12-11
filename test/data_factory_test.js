@@ -22,13 +22,13 @@ describe('DataFactory', () => {
     }, {
       id: 2,
       stages: [{
-        stage: 'stage1',
-        start: 1010,
-        end: 1012
-      }, {
         stage: 'stage3',
         start: 1011,
         end: 1014
+      }, {
+        stage: 'stage1',
+        start: 1010,
+        end: 1012
       }]
     }];
 
@@ -77,13 +77,13 @@ describe('DataFactory', () => {
     describe('.getGanttDataFormat', () => {
       it('should return an array of stages', () => {
         assert.deepEqual(stageData.getGanttDataFormat(2), [{
-          stage: 'stage1',
-          start: 0,
-          end: 2
-        }, {
           stage: 'stage3',
           start: 1,
           end: 4
+        }, {
+          stage: 'stage1',
+          start: 0,
+          end: 2
         }]);
       });
     });
