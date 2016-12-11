@@ -4,8 +4,6 @@ const CriticalPathChart = {
   run(stageData) {
     const data = stageData.getStackedDataFormat();
 
-    console.log('foo', data);
-
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
@@ -15,8 +13,6 @@ const CriticalPathChart = {
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    window.d3 = d3;
 
     var x = d3.scaleLinear()
       .range([0, width-100])
@@ -48,7 +44,6 @@ const CriticalPathChart = {
     layer.append("path")
       .attr("class", "area")
       .style("fill", function(d) {
-        console.log(d);
         return color(d.key);
       })
       .attr("d", area);
