@@ -14,7 +14,7 @@ const CriticalPathChart = {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var x = d3.scaleLinear()
+    var x = d3.scaleOrdinal()
       .range([0, width-100])
       .domain(d3.extent(data, function(d) { return d.id; }))
 

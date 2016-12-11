@@ -41,7 +41,7 @@ const GanttChart = {
         })
         .attr("height", y.bandwidth())
         .attr("width", function(d) {
-          return x(d.end) - x(d.start);
+          return Math.max(3, x(d.end) - x(d.start));
         })
         .attr("rx", 5)
         .attr("ry", 5)
