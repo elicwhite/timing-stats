@@ -27,42 +27,38 @@ DataFactory._StageData = class StageData {
     return Array.from(new Set(stages));
   }
 
-  getTimeRange() {
-    const times = this._data.map((group) => {
-      return group.stages.reduce((acc, stage) => {
-        return acc.concat([stage.start, stage.end]);
-      }, []);
-    })
-    .reduce((arr1, arr2) => arr1.concat(arr2))
-    .map(time => moment(time).valueOf());
+  getStackedTimeRange() {
+    const times = this.getStackedDataFormat()
+    .map(group => {
+      return Object.keys(group)
+      .filter(key => key !== 'id')
+      .reduce((acc, key) => {
+        acc += group[key];
+        return acc;
+      }, 0);
 
-    return [
-      Math.min.apply(null, times),
-      Math.max.apply(null, times)
-    ];
+      return keys;
+    });
+
+    return [0, Math.max.apply(null, times)];
   }
 
   getStackedDataFormat() {
     return this._data.map(group => {
       const startTime = group.stages[0].start;
 
-      group.stages.map(stage => {
+      return group.stages.map(stage => {
         stage.start = stage.start - startTime;
         stage.end = stage.end - startTime;
         return stage;
-      });
-
-      return group;
-    })
-    .map(group => {
-      return group.stages.reduce((acc, stage) => {
+      })
+      .reduce((acc, stage) => {
         acc[stage.stage] = stage.end - stage.start;
         return acc;
       }, {
         id: group.id
       });
-    })
-    .reduce((acc, group) => acc.concat(group), []);
+    });
   }
 };
 

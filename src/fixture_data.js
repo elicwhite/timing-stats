@@ -10,7 +10,7 @@ module.exports = [
       {
         stage: "deps",
         start: 1467839120064,
-        end: 1467839120068
+        end: 1467839140068
       },
       {
         stage: "update-config-properties",
@@ -74,7 +74,7 @@ module.exports = [
       },
       {
         stage: "accept-test",
-        start: 1467839133413,
+        start: 1467839333413,
         end: 1467839482022
       }
     ]

@@ -20,46 +20,38 @@ const CriticalPathChart = {
 
     var x = d3.scaleLinear()
       .range([0, width-100])
-      .domain([0, data.length])
+      .domain(d3.extent(data, function(d) { return d.id; }))
 
     var y = d3.scaleLinear()
       .rangeRound([height, 0])
-      .domain(stageData.getTimeRange());
+      .domain(stageData.getStackedTimeRange());
 
     var color = d3.scaleOrdinal(d3.schemeCategory10)
       .domain(stageData.getStages());
 
     var stack = d3.stack();
-
     stack.keys(stageData.getStages());
 
     var area = d3.area()
-        .x(function(stage) {
-          return x(stage.id);
-        })
-        .y0(function(stage) { return y(stage.start); })
-        .y1(function(stage) { return y(stage.end); });
+      .x(function(stage) { return x(stage.data.id); })
+      .y0(function(stage) { return y(stage[0]); })
+      .y1(function(stage) { return y(stage[1]); });
 
     var g = svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var layer = g.selectAll(".layer")
-    .data(stack(data))
-    .enter().append("g")
-      .attr("class", "layer");
+      .data(stack(data))
+      .enter().append("g")
+        .attr("class", "layer");
 
     layer.append("path")
-        .attr("class", "area")
-        .style("fill", function(stage) { return color(stage.stage); })
-        .attr("d", area);
-
-    layer.append("text")
-        .attr("x", width - 6)
-        .attr("y", function(stage) { return y( (stage.start + stage.end) / 2) })
-        .attr("dy", ".35em")
-        .style("font", "10px sans-serif")
-        .style("text-anchor", "end")
-        .text(function(stage) { return stage.stage; });
+      .attr("class", "area")
+      .style("fill", function(d) {
+        console.log(d);
+        return color(d.key);
+      })
+      .attr("d", area);
 
     g.append("g")
         .attr("class", "axis axis--x")
@@ -68,31 +60,10 @@ const CriticalPathChart = {
 
     g.append("g")
         .attr("class", "axis axis--y")
-        .call(d3.axisLeft(y).ticks(10, "%"));
-
-    return;
-
-    var state = svg.selectAll(".state")
-        .data(data)
-      .enter().append("g")
-        .attr("class", "g")
-        .attr("transform", function(group) {
-          return "translate(" + x(d.State) + ",0)";
-        });
-
-    return;
-
-    state.selectAll("rect")
-        .data(function(d) { return d.ages; })
-      .enter().append("rect")
-        .attr("width", x.rangeBand())
-        .attr("y", function(d) { return y(d.y1); })
-        .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-        .style("fill", function(d) { return color(d.name); })
-        .style("opacity", .8);
+        .call(d3.axisLeft(y).ticks(10));
 
     var legend = svg.selectAll(".legend")
-        .data(color.domain().slice().reverse())
+      .data(color.domain().slice().reverse())
       .enter().append("g")
         .attr("class", "legend")
         .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
@@ -109,7 +80,6 @@ const CriticalPathChart = {
         .attr("dy", ".35em")
         .style("text-anchor", "end")
         .text(function(d) { return d; });
-
   }
 };
 

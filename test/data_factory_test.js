@@ -54,44 +54,22 @@ describe('DataFactory', () => {
       });
     });
 
-    describe('.getTimeRange', () => {
+    describe('.getStackedTimeRange', () => {
       it('should return the range of the stage times', () => {
-        assert.deepEqual([1001, 1014], stageData.getTimeRange());
+        assert.deepEqual([0, 6], stageData.getStackedTimeRange());
       })
     });
 
     describe('.getStackedDataFormat', () => {
       it('should return an array of stages', () => {
-        // {
-        //   id: 1,
-        //   stage1: 4,
-        //   stage2: 2
-        // }, {
-        //   id: 2,
-        //   stage1: 2,
-        //   stage2: 3
-        // }
-
         assert.deepEqual(stageData.getStackedDataFormat(), [{
           id: 1,
-          stage: 'stage1',
-          start: 0,
-          end: 4
-        }, {
-          id: 1,
-          stage: 'stage2',
-          start: 5,
-          end: 7
+          stage1: 4,
+          stage2: 2
         }, {
           id: 2,
-          stage: 'stage1',
-          start: 9,
-          end: 11
-        }, {
-          id: 2,
-          stage: 'stage3',
-          start: 10,
-          end: 13
+          stage1: 2,
+          stage3: 3
         }]);
       });
     });
