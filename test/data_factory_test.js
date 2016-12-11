@@ -73,5 +73,19 @@ describe('DataFactory', () => {
         }]);
       });
     });
+
+    describe('.getGanttDataFormat', () => {
+      it('should return an array of stages', () => {
+        assert.deepEqual(stageData.getGanttDataFormat(2), [{
+          stage: 'stage1',
+          start: 0,
+          end: 2
+        }, {
+          stage: 'stage3',
+          start: 1,
+          end: 4
+        }]);
+      });
+    });
   });
 });

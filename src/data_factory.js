@@ -45,13 +45,7 @@ DataFactory._StageData = class StageData {
 
   getStackedDataFormat() {
     return this._data.map(group => {
-      const startTime = group.stages[0].start;
-
-      return group.stages.map(stage => {
-        stage.start = stage.start - startTime;
-        stage.end = stage.end - startTime;
-        return stage;
-      })
+      return this._normalizeStages(group.stages)
       .reduce((acc, stage) => {
         acc[stage.stage] = stage.end - stage.start;
         return acc;
@@ -59,6 +53,25 @@ DataFactory._StageData = class StageData {
         id: group.id
       });
     });
+  }
+
+  getGanttDataFormat(id) {
+    const group = this._data.filter(group => group.id === id);
+    if(!group.length) {
+      throw new Error('no group found with that id');
+    }
+
+    return this._normalizeStages(group[0].stages);
+  }
+
+  _normalizeStages(stages) {
+    const startTime = stages[0].start;
+
+    return stages.map(stage => {
+      stage.start = stage.start - startTime;
+      stage.end = stage.end - startTime;
+      return stage;
+    })
   }
 };
 
