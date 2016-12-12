@@ -176,3 +176,6 @@ module.exports = [
     }]
   }
 ]
+
+console.log('foo');
+console.log(JSON.stringify(module.exports));
