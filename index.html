@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <textarea id="text-input" class="form-control" rows="12"></textarea>
+          </div>
+          <button id="process-text-input" type="submit" class="btn btn-primary">
+            Submit
+          </button>
+        </div>
+
+        <div class="col-md-9">
+          <div id="gantt-chart"></div>
+          <div id="critical-path-chart"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
