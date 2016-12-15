@@ -13,7 +13,7 @@ branches:
 deploy:
   skip_cleanup: true
   provider: script
-  script: scripts/deploy.js
+  script: chmod +x scripts/deploy.js && scripts/deploy.js
   on:
     branch: master
     node: 'node'
