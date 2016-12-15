@@ -19,7 +19,6 @@
     "build:js": "webpack",
     "build": "yarn build:js",
     "start": "yarn copy && yarn build && webpack-dev-server --progress --colors --hot --content-base dist/",
-    "test": "mocha",
-    "deploy": "gh-pages -d dist"
+    "test": "mocha"
   }
 }
