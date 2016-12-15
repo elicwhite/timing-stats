@@ -11,6 +11,7 @@ branches:
   except:
   - gh-pages
 deploy:
+  skip_cleanup: true
   provider: script
   script: scripts/deploy.js
   on:
