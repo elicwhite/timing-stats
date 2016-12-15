@@ -7,6 +7,7 @@
     "bootstrap": "^3.3.7",
     "chai": "^3.5.0",
     "d3": "^4.4.0",
+    "gh-pages": "^0.12.0",
     "mocha": "^3.2.0",
     "moment": "^2.17.1",
     "webpack": "2.2.0-rc.0",
@@ -18,6 +19,7 @@
     "build:js": "webpack",
     "build": "yarn build:js",
     "start": "yarn copy && yarn build && webpack-dev-server --progress --colors --hot --content-base dist/",
-    "test": "mocha"
+    "test": "mocha",
+    "deploy": "gh-pages -d dist"
   }
 }
