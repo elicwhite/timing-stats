@@ -2,7 +2,7 @@
 
 const path = require('path');
 
-module.exports = {
+const WebpackConfig = {
     entry: "./src/index.js",
     output: {
         path: path.join(__dirname, 'dist'),
@@ -15,3 +15,5 @@ module.exports = {
         inline: true
     }
 };
+
+module.exports = WebpackConfig;
