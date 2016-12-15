@@ -1,0 +1,9 @@
+language: node_js
+script: yarn test
+node_js:
+- node
+- '6'
+- '4'
+cache: yarn
+notifications:
+  email: false
