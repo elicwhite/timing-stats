@@ -15,6 +15,7 @@ deploy:
   script: scripts/deploy.js
   on:
     branch: master
+    node: 'node'
 env:
   global:
     secure: QA1h1tfd6gYEz0ic05HYWPMQYTMh59+fnFCmM7AXdJxVdjrWM5kMZkI/CkyLaA/xkI2qIwmA/n3r2Yr7hKldApQPTc7tM77zbWH0x4vJinJ4aD+tuQlsIvxscwMZZEq191lp2Ck3c5KKCOri2rHtNVzti43R+ymG6aAg/A+I+ujzY/D0E1Rw6+u0v1dgG650SBAnYe1UMGNIjpNowGl8dm/fXio2f39cNMyqaT/XOYYCMolzQy1YOamCeLyq786cswbjAUcgWqEKXsZgMDLk0qgqRQ2tBs6bnngtXVfwQXoBuXSNGGNRxEjLM8q4slfMjMNj5mRHucriLeSQnSW4scJZt4NKMGxxx2MJfqyKFdURL8eJL9c1UmVaYSfzdorDj+jlRQQvE7PHL2RDzboOmfKMKfjITVEE2MPY378+AYEYJaZKb0OuMmm51NIvE/olOPQOIn8hkPF6hnVLKbRe7eMMsNr6IVat1/cU3BpbqaO3TfXdgFGbKF8AInp5cNhalfQHaBkTshm7lNyoEIt1ef4LuZlUxENPVZxIkHC2YzRkCOJ4R1hogQKBEH69i/7Y6r+qgUM1vDPZbO7L46dC+sm0MqNZpALaAYSJ5LzH3alBhSoHct2Us24qd64+A1/fXw0RHc2WWYsiIB7gq76HDPkevImKUJAYkVVTdWeMmrs=
