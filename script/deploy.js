@@ -9,6 +9,6 @@ ghpages.publish(path.join(__dirname, '..', 'dist'), {
 }, (err) => {
   if (err) {
     console.error('Error deploying to Github pages');
-    throw err;
+    console.error(err.message);
   }
 });
