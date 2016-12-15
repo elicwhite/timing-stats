@@ -19,6 +19,7 @@
     "build:js": "webpack",
     "build": "yarn build:js",
     "start": "yarn copy && yarn build && webpack-dev-server --progress --colors --hot --content-base dist/",
-    "test": "mocha"
+    "test": "mocha",
+    "deploy": "yarn build && node ./script/deploy.js"
   }
 }
