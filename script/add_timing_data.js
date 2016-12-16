@@ -7,7 +7,7 @@ var fs = require('fs');
 const rootPath = path.join(__dirname, '..');
 
 fs.appendFile(
-  path.join(path.join(rootPath, 'test_deploy_data.txt'),
+  path.join(path.join(rootPath, 'test_deploy_data.txt')),
   process.env.TRAVIS_JOB_NUMBER,
   function (err) {
     if (err) {
