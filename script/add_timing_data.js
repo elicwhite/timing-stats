@@ -16,7 +16,7 @@ fs.appendFile(
   }
 );
 
-ghpages.publish('.'), {
+ghpages.publish('.', {
   src: 'test_deploy_data.txt',
   add: true,
   branch: 'master',
