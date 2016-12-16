@@ -4,8 +4,10 @@ var ghpages = require('gh-pages');
 var path = require('path');
 var fs = require('fs');
 
+const rootPath = path.join(__dirname, '..');
+
 fs.appendFile(
-  path.resolve('..', 'test_deploy_data.txt'),
+  path.join(path.join(rootPath, 'test_deploy_data.txt'),
   process.env.TRAVIS_JOB_NUMBER,
   function (err) {
     if (err) {
@@ -18,13 +20,13 @@ fs.appendFile(
 
 
 
-ghpages.publish('.', {
+ghpages.publish(rootPath, {
   src: 'test_deploy_data.txt',
   add: true,
   branch: 'master',
   message: 'Updating sample data [skip ci]',
   repo: 'https://' + process.env.GH_TOKEN + '@github.com/thesavior/timing-stats.git',
-  clone: 'timing_data_temp_dir',
+  clone: path.join(rootPath, 'timing_data_temp_dir'),
   user: {
     name: 'Eli White',
     email: 'github@eli-white.com'
