@@ -65,11 +65,63 @@ describe('DataFactory', () => {
         assert.deepEqual(stageData.getStackedDataFormat(), [{
           id: 1,
           stage1: 4,
-          stage2: 2
+          stage2: 2,
+          stage3: 0
         }, {
           id: 2,
           stage1: 2,
+          stage2: 0,
           stage3: 3
+        }]);
+      });
+    });
+
+    describe('.getCriticalPathStackedDataFormat', () => {
+      it('should return the critical path stages', () => {
+        fakeData = [{
+          id: 1,
+          stages: [{
+            stage: 'stage1',
+            start: 1001,
+            end: 1005
+          }, {
+            stage: 'stage2',
+            start: 1003,
+            end: 1007
+          }, {
+            stage: 'stage3',
+            start: 1006,
+            end: 1008
+          }]
+        }, {
+          id: 2,
+          stages: [{
+            stage: 'stage1',
+            start: 1010,
+            end: 1015
+          }, {
+            stage: 'stage2',
+            start: 1008,
+            end: 1016
+          }, {
+            stage: 'stage3',
+            start: 1011,
+            end: 1013
+          }]
+        }];
+
+        stageData = dataFactory.from(fakeData);
+
+        assert.deepEqual(stageData.getCriticalPathStackedDataFormat(), [{
+          id: 1,
+          stage1: 4,
+          stage2: 0,
+          stage3: 2
+        }, {
+          id: 2,
+          stage1: 0,
+          stage2: 8,
+          stage3: 0
         }]);
       });
     });

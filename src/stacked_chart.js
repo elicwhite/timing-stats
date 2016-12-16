@@ -1,14 +1,34 @@
 const d3 = require('d3');
 
-const CriticalPathChart = {
-  run(stageData) {
-    const data = stageData.getStackedDataFormat();
+const StackedChart = {
+  getStackedTimeRange(data) {
+    const times = data
+    .map(group => {
+      return Object.keys(group)
+      .filter(key => key !== 'id')
+      .reduce((acc, key) => {
+        acc += group[key];
+        return acc;
+      }, 0);
+
+      return keys;
+    });
+
+    return [0, Math.max.apply(null, times)];
+  },
+
+  run(selector, stageData, methodName) {
+    const data = stageData[methodName]();
+
+    const stages = Object.keys(data[0]).filter(key => key !== 'id');
+
+    const timeRange = StackedChart.getStackedTimeRange(data);
 
     var margin = {top: 20, right: 20, bottom: 50, left: 40},
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    var svg = d3.select("#critical-path-chart").append("svg")
+    var svg = d3.select(selector).append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -20,13 +40,13 @@ const CriticalPathChart = {
 
     var y = d3.scaleLinear()
       .rangeRound([height, 0])
-      .domain(stageData.getStackedTimeRange());
+      .domain(timeRange);
 
     var color = d3.scaleOrdinal(d3.schemeCategory10)
-      .domain(stageData.getStages());
+      .domain(stages);
 
     var stack = d3.stack();
-    stack.keys(stageData.getStages());
+    stack.keys(stages);
 
     var area = d3.area()
       .x(function(stage) { return x(stage.data.id); })
@@ -78,4 +98,4 @@ const CriticalPathChart = {
   }
 };
 
-module.exports = CriticalPathChart;
+module.exports = StackedChart;

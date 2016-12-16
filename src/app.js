@@ -20,7 +20,8 @@ const App = {
 
       const stageData = dataFactory.from(data);
 
-      stackedChart.run(stageData);
+      stackedChart.run('#stacked-chart', stageData, 'getStackedDataFormat');
+      stackedChart.run('#critical-path-chart', stageData, 'getCriticalPathStackedDataFormat');
       ganttChart.run(stageData);
     });
 

@@ -44,7 +44,7 @@ DataFactory._StageData = class StageData {
   }
 
   getStackedDataFormat() {
-    return this._data.map(group => {
+    const groups = this._data.map(group => {
       return this._normalizeStages(group.stages)
       .reduce((acc, stage) => {
         acc[stage.stage] = stage.end - stage.start;
@@ -53,6 +53,35 @@ DataFactory._StageData = class StageData {
         id: group.id
       });
     });
+
+    return this._ensureStagesAcrossGroups(groups);
+  }
+
+  getCriticalPathStackedDataFormat() {
+    const groups = this._data.map(group => {
+      const reverseSortedStages = group.stages.sort((stage1, stage2) => {
+        return stage2.end - stage1.end;
+      });
+
+
+      const criticalStages = reverseSortedStages.reduce((acc, stage) => {
+        if (stage.end <= acc[acc.length - 1].start) {
+          acc.push(stage);
+        }
+
+        return acc;
+      }, [reverseSortedStages[0]])
+
+      return this._normalizeStages(criticalStages)
+      .reduce((acc, stage) => {
+        acc[stage.stage] = stage.end - stage.start;
+        return acc;
+      }, {
+        id: group.id
+      });
+    });
+
+    return this._ensureStagesAcrossGroups(groups);
   }
 
   getGanttDataFormat(id) {
@@ -77,6 +106,21 @@ DataFactory._StageData = class StageData {
       stage.end = stage.end - startTime;
       return stage;
     })
+  }
+
+  _ensureStagesAcrossGroups(groups) {
+    const allKeys = groups.map(group => Object.keys(group))
+    .reduce((keys1, keys2) => keys1.concat(keys2));
+
+    const uniqueKeys = Array.from(new Set(allKeys));
+
+    return groups.map(group => {
+      uniqueKeys.forEach(key => {
+        group[key] = group[key] === undefined ? 0 : group[key];
+      });
+
+      return group;
+    });
   }
 };
 
