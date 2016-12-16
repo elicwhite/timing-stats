@@ -13,12 +13,11 @@ fs.appendFile(
     if (err) {
       console.error('Error writing to test_deploy_data.txt');
       console.error(err.message);
+      console.error(err.stack);
       process.exit(1);
     }
   }
 );
-
-
 
 ghpages.publish(rootPath, {
   src: 'test_deploy_data.txt',
@@ -35,6 +34,7 @@ ghpages.publish(rootPath, {
   if (err) {
     console.error('Error pushing sample data update');
     console.error(err.message);
+    console.error(err.stack);
     process.exit(1);
   }
 });

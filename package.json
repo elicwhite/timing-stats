@@ -21,6 +21,6 @@
     "assets": "yarn copy && yarn build",
     "start": "yarn assets && webpack-dev-server --progress --colors --hot --content-base dist/",
     "test": "mocha",
-    "deploy": "yarn assets && node ./script/deploy.js && node ./script/add_timing_data.js"
+    "deploy": "yarn assets && node ./script/deploy.js && mkdir timing_data_temp_dir && node ./script/add_timing_data.js"
   }
 }
