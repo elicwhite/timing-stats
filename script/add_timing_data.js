@@ -16,12 +16,15 @@ fs.appendFile(
   }
 );
 
+
+
 ghpages.publish('.', {
   src: 'test_deploy_data.txt',
   add: true,
   branch: 'master',
   message: 'Updating sample data [skip ci]',
   repo: 'https://' + process.env.GH_TOKEN + '@github.com/thesavior/timing-stats.git',
+  clone: 'timing_data_temp_dir',
   user: {
     name: 'Eli White',
     email: 'github@eli-white.com'
