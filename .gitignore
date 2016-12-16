@@ -1,5 +1,6 @@
 dist/css
 dist/index.js
+dist/test_deploy_data.txt
 
 # Logs
 logs

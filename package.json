@@ -14,8 +14,9 @@
     "webpack-dev-server": "2.1.0-beta.12"
   },
   "scripts": {
+    "copy:sample": "cp test_deploy_data.txt dist/",
     "copy:bootstrap": "rm -rf dist/css && mkdir dist/css && cp -R node_modules/bootstrap/dist/css/* dist/css",
-    "copy": "yarn copy:bootstrap",
+    "copy": "yarn copy:sample && yarn copy:bootstrap",
     "build:js": "webpack",
     "build": "yarn build:js",
     "assets": "yarn copy && yarn build",
