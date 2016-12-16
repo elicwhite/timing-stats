@@ -21,6 +21,7 @@
     "assets": "yarn copy && yarn build",
     "start": "yarn assets && webpack-dev-server --progress --colors --hot --content-base dist/",
     "test": "mocha",
-    "deploy": "yarn assets && node ./script/deploy.js && mkdir timing_data_temp_dir && node ./script/add_timing_data.js"
+    "clean:gh-pages": "rm -rf node_modules/gh-pages/.cache",
+    "deploy": "yarn assets && yarn clean:gh-pages && node ./script/deploy.js && yarn clean:gh-pages && node ./script/add_timing_data.js"
   }
 }

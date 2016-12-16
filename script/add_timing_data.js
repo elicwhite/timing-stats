@@ -25,7 +25,6 @@ ghpages.publish(rootPath, {
   branch: 'master',
   message: 'Updating sample data [skip ci]',
   repo: 'https://' + process.env.GH_TOKEN + '@github.com/thesavior/timing-stats.git',
-  clone: path.join(rootPath, 'timing_data_temp_dir'),
   user: {
     name: 'Eli White',
     email: 'github@eli-white.com'
