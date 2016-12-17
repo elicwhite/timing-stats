@@ -14,6 +14,13 @@ DataFactory._StageData = class StageData {
     this._data = data;
   }
 
+  cleanData() {
+    this._data = this._data.map(group => {
+      group.stages = group.stages.filter(stage => stage.start !== undefined && stage.end !== undefined);
+      return group;
+    }).filter(group => group.stages.length > 0);
+  }
+
   getData() {
     return this._data;
   }
@@ -101,8 +108,6 @@ DataFactory._StageData = class StageData {
   }
 
   _normalizeStages(stages) {
-    stages = stages.filter(stage => stage.start !== undefined && stage.end !== undefined);
-
     const startTime = stages.reduce((prev, stage) => {
       return Math.min(prev, stage.start);
     }, stages[0].start);

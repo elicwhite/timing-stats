@@ -17,10 +17,10 @@ const StackedChart = {
     return [0, Math.max.apply(null, times)];
   },
 
-  run(selector, stageData, methodName) {
+  run(selector, stageData, methodName, dataChart) {
     const data = stageData[methodName]();
 
-    const stages = Object.keys(data[0]).filter(key => key !== 'id');
+    const stages = stageData.getStages();
 
     const timeRange = StackedChart.getStackedTimeRange(data);
 
@@ -42,8 +42,7 @@ const StackedChart = {
       .rangeRound([height, 0])
       .domain(timeRange);
 
-    var color = d3.scaleOrdinal(d3.schemeCategory10)
-      .domain(stages);
+    var color = dataChart.getStageColorScale();
 
     var stack = d3.stack();
     stack.keys(stages);

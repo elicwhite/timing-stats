@@ -1,7 +1,7 @@
 const d3 = require('d3');
 
 const GanttChart = {
-  run(stageData, id) {
+  run(stageData, id, dataChart) {
     const data = stageData.getGanttDataFormat(id);
 
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -18,8 +18,7 @@ const GanttChart = {
     var x = d3.scaleLinear().rangeRound([0, width]),
         y = d3.scaleBand().rangeRound([height, 0]).padding(0.1);
 
-    var color = d3.scaleOrdinal(d3.schemeCategory10)
-      .domain(stageData.getStages());
+    var color = dataChart.getStageColorScale();
 
     x.domain([0, d3.max(data, function(stage) { return stage.end; })]);
     y.domain(data.map(function(stage) { return stage.stage; }));

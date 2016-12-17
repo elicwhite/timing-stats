@@ -3,6 +3,7 @@
 const stackedChart = require('./stacked_chart');
 const ganttChart = require('./gantt_chart');
 const dataFactory = require('./data_factory');
+const DataChart = require('./data_chart');
 
 const App = {
   init() {
@@ -19,10 +20,12 @@ const App = {
       input.value = formatted;
 
       const stageData = dataFactory.from(data);
+      stageData.cleanData();
+      const dataChart = new DataChart(stageData);
 
-      stackedChart.run('#stacked-chart', stageData, 'getStackedDataFormat');
-      stackedChart.run('#critical-path-chart', stageData, 'getCriticalPathStackedDataFormat');
-      ganttChart.run(stageData, stageData.getLastId());
+      stackedChart.run('#stacked-chart', stageData, 'getStackedDataFormat', dataChart);
+      stackedChart.run('#critical-path-chart', stageData, 'getCriticalPathStackedDataFormat', dataChart);
+      ganttChart.run(stageData, stageData.getLastId(), dataChart);
     });
 
   },

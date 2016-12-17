@@ -14,6 +14,84 @@ describe('DataFactory', () => {
   });
 
   describe('StageData', () => {
+    describe('.cleanData', () => {
+      it('should filter out stages without a start and end', () => {
+        const data = [{
+          id: 1,
+          stages: [{
+            stage: 'stage1',
+            end: 1005
+          }, {
+            stage: 'stage2',
+            start: 1006
+          }, {
+            stage: 'stage3',
+            start: 1009,
+            end: 1011
+          }]
+        }];
+        const stageData = dataFactory.from(data);
+        stageData.cleanData();
+
+        assert.deepEqual(stageData.getData(), [{
+          id: 1,
+          stages: [{
+            stage: 'stage3',
+            start: 1009,
+            end: 1011
+          }]
+        }]);
+      });
+
+      it('should remove groups that have no valid stages', () => {
+        const data = [{
+          id: 1,
+          stages: [{
+            stage: 'stage1',
+            end: 1005
+          }]
+        }, {
+          id: 2,
+          stages: [{
+            stage: 'stage3',
+            start: 1009,
+            end: 1011
+          }]
+        }];
+        const stageData = dataFactory.from(data);
+        stageData.cleanData();
+
+        assert.deepEqual(stageData.getData(), [{
+          id: 2,
+          stages: [{
+            stage: 'stage3',
+            start: 1009,
+            end: 1011
+          }]
+        }]);
+      });
+
+      it('should be an empty array if no valid groups', () => {
+        const data = [{
+          id: 1,
+          stages: [{
+            stage: 'stage1',
+            end: 1005
+          }]
+        }, {
+          id: 2,
+          stages: [{
+            stage: 'stage3',
+            start: 1009,
+          }]
+        }];
+        const stageData = dataFactory.from(data);
+        stageData.cleanData();
+
+        assert.deepEqual(stageData.getData(), []);
+      });
+    });
+
     describe('.getData', () => {
       it('should return the data', () => {
         const fakeData = getFakeData();
@@ -56,15 +134,6 @@ describe('DataFactory', () => {
           stage1: 2,
           stage2: 0,
           stage3: 3
-        }]);
-      });
-
-      it('should filter out stages without a start and end', () => {
-        const stageData = dataFactory.from(getFakeDataWithoutStartEnd());
-
-        assert.deepEqual(stageData.getStackedDataFormat(), [{
-          id: 1,
-          stage3: 2
         }]);
       });
     });
@@ -133,16 +202,6 @@ describe('DataFactory', () => {
           end: 2
         }]);
       });
-
-      it('should filter out stages without a start and end', () => {
-        const stageData = dataFactory.from(getFakeDataWithoutStartEnd());
-
-        assert.deepEqual(stageData.getGanttDataFormat(1), [{
-          stage: 'stage3',
-          start: 0,
-          end: 2
-        }]);
-      });
     });
   });
 });
@@ -169,23 +228,6 @@ function getFakeData() {
       stage: 'stage1',
       start: 1010,
       end: 1012
-    }]
-  }];
-}
-
-function getFakeDataWithoutStartEnd() {
-  return [{
-    id: 1,
-    stages: [{
-      stage: 'stage1',
-      end: 1005
-    }, {
-      stage: 'stage2',
-      start: 1006
-    }, {
-      stage: 'stage3',
-      start: 1009,
-      end: 1011
     }]
   }];
 }
