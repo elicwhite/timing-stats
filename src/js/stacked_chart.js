@@ -34,9 +34,9 @@ const StackedChart = {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var x = d3.scaleLinear()
+    var x = d3.scalePoint()
       .range([0, width-100])
-      .domain(d3.extent(data, function(d) { return d.id; }))
+      .domain(data.map(d => d.id));
 
     var y = d3.scaleLinear()
       .rangeRound([height, 0])
@@ -50,14 +50,8 @@ const StackedChart = {
 
     var area = d3.area()
       .x(function(stage) { return x(stage.data.id); })
-      .y0(function(stage) {
-        console.log('y0', stage[0]);
-        return y(stage[0]);
-      })
-      .y1(function(stage) {
-        console.log('y1', stage[1]);
-        return y(stage[1]);
-      });
+      .y0(function(stage) { return y(stage[0]); })
+      .y1(function(stage) { return y(stage[1]); });
 
     var g = svg.append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
