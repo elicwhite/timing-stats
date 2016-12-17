@@ -28,7 +28,7 @@
     "clean:bootstrap": "rm -rf dist/css",
     "clean:gh-pages": "rm -rf node_modules/gh-pages/.cache",
     "deploy:gh-pages": "yarn timing:start deploy:gh-pages && yarn clean:gh-pages && node ./script/deploy.js && yarn timing:stop deploy:gh-pages",
-    "deploy:timing-data": "yarn build:sample-data && yarn timing:start deploy:timing-data && yarn clean:gh-pages && node ./script/add_timing_data.js && yarn timing:stop deploy:timing-data",
-    "deploy": "yarn assets && yarn deploy:gh-pages && yarn clean:gh-pages && node ./script/add_timing_data.js"
+    "deploy:timing-data": "yarn build:sample-data && yarn clean:gh-pages && node ./script/add_timing_data.js",
+    "deploy": "yarn assets && yarn deploy:gh-pages && yarn deploy:timing-data"
   }
 }
