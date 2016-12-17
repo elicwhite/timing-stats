@@ -11,6 +11,7 @@ const App = {
 
     App.getSampleData().then(result => {
       input.value = JSON.stringify(result, null, 2);
+      App.run(result);
     });
 
     document.getElementById('process-text-input').addEventListener('click', () => {
@@ -18,21 +19,24 @@ const App = {
       const data = JSON.parse(dataString);
       const formatted = JSON.stringify(data, null, 2);
       input.value = formatted;
-
-      const stageData = dataFactory.from(data);
-      stageData.cleanData();
-      const dataChart = new DataChart(stageData);
-
-      stackedChart.run('#stacked-chart', stageData, 'getStackedDataFormat', dataChart);
-      stackedChart.run('#critical-path-chart', stageData, 'getCriticalPathStackedDataFormat', dataChart);
-      ganttChart.run(stageData, stageData.getLastId(), dataChart);
+      App.run(data);
     });
-
   },
 
   getSampleData() {
     return fetch('./sample_data.json')
     .then(response => response.json());
+  },
+
+  run(data) {
+    console.log(data);
+    const stageData = dataFactory.from(data);
+    stageData.cleanData();
+    const dataChart = new DataChart(stageData);
+
+    stackedChart.run('#stacked-chart', stageData, 'getStackedDataFormat', dataChart);
+    stackedChart.run('#critical-path-chart', stageData, 'getCriticalPathStackedDataFormat', dataChart);
+    ganttChart.run(stageData, stageData.getLastId(), dataChart);
   }
 };
 
