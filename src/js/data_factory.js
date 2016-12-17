@@ -97,6 +97,8 @@ DataFactory._StageData = class StageData {
   }
 
   _normalizeStages(stages) {
+    stages = stages.filter(stage => stage.start !== undefined && stage.end !== undefined);
+
     const startTime = stages.reduce((prev, stage) => {
       return Math.min(prev, stage.start);
     }, stages[0].start);

@@ -3,32 +3,6 @@
 const assert = require('chai').assert;
 const dataFactory = require('../src/js/data_factory');
 
- function getFakeData() {
-  return [{
-    id: 1,
-    stages: [{
-      stage: 'stage1',
-      start: 1001,
-      end: 1005
-    }, {
-      stage: 'stage2',
-      start: 1006,
-      end: 1008
-    }]
-  }, {
-    id: 2,
-    stages: [{
-      stage: 'stage3',
-      start: 1011,
-      end: 1014
-    }, {
-      stage: 'stage1',
-      start: 1010,
-      end: 1012
-    }]
-  }];
-}
-
 describe('DataFactory', () => {
   let stageData;
 
@@ -75,6 +49,15 @@ describe('DataFactory', () => {
           stage1: 2,
           stage2: 0,
           stage3: 3
+        }]);
+      });
+
+      it('should filter out stages without a start and end', () => {
+        const stageData = dataFactory.from(getFakeDataWithoutStartEnd());
+
+        assert.deepEqual(stageData.getStackedDataFormat(), [{
+          id: 1,
+          stage3: 2
         }]);
       });
     });
@@ -143,6 +126,59 @@ describe('DataFactory', () => {
           end: 2
         }]);
       });
+
+      it('should filter out stages without a start and end', () => {
+        const stageData = dataFactory.from(getFakeDataWithoutStartEnd());
+
+        assert.deepEqual(stageData.getGanttDataFormat(1), [{
+          stage: 'stage3',
+          start: 0,
+          end: 2
+        }]);
+      });
     });
   });
 });
+
+function getFakeData() {
+  return [{
+    id: 1,
+    stages: [{
+      stage: 'stage1',
+      start: 1001,
+      end: 1005
+    }, {
+      stage: 'stage2',
+      start: 1006,
+      end: 1008
+    }]
+  }, {
+    id: 2,
+    stages: [{
+      stage: 'stage3',
+      start: 1011,
+      end: 1014
+    }, {
+      stage: 'stage1',
+      start: 1010,
+      end: 1012
+    }]
+  }];
+}
+
+function getFakeDataWithoutStartEnd() {
+  return [{
+    id: 1,
+    stages: [{
+      stage: 'stage1',
+      end: 1005
+    }, {
+      stage: 'stage2',
+      start: 1006
+    }, {
+      stage: 'stage3',
+      start: 1009,
+      end: 1011
+    }]
+  }];
+}
