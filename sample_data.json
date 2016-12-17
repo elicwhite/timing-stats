@@ -1,1 +1,1 @@
-[]
+[{"id":31,"stages":[{"stage":"mocha","start":1481967226310,"end":1481967226887},{"stage":"copy:sample","start":1481967231028,"end":1481967231349},{"stage":"copy:bootstrap","start":1481967231944,"end":1481967232538},{"stage":"webpack","start":1481967233407,"end":1481967235991},{"stage":"deploy:gh-pages","start":1481967236589,"end":1481967238175},{"stage":"sample-data","start":1481967239024}]}]
