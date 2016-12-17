@@ -7,20 +7,16 @@ const dataFactory = require('./data_factory');
 const App = {
   init() {
     const input = document.getElementById('text-input');
-    if (localStorage.inputJson) {
-      input.value = localStorage.inputJson;
-    } else {
-      App.getSampleData().then(result => {
-        input.value = JSON.stringify(result, null, 2);
-      })
-    }
+
+    App.getSampleData().then(result => {
+      input.value = JSON.stringify(result, null, 2);
+    });
 
     document.getElementById('process-text-input').addEventListener('click', () => {
       const dataString = input.value;
       const data = JSON.parse(dataString);
       const formatted = JSON.stringify(data, null, 2);
       input.value = formatted;
-      localStorage.inputJson = formatted;
 
       const stageData = dataFactory.from(data);
 
