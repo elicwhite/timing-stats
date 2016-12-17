@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('chai').assert;
-const processTimingLines = require('../src/process_timing_lines');
+const processTimingLines = require('../src/js/process_timing_lines');
 
 describe('processTimingLines', () => {
   it('should convert lines', () => {
