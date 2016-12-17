@@ -16,7 +16,7 @@
   "scripts": {
     "timing:start": "./script/timing.js START ",
     "timing:stop": "./script/timing.js STOP ",
-    "copy:sample": "yarn timing:start copy:sample && cp test_deploy_data.txt dist/ && yarn timing:stop copy:sample",
+    "copy:sample": "yarn timing:start copy:sample && cp sample_data.json dist/ && yarn timing:stop copy:sample",
     "copy:bootstrap": "yarn timing:start copy:bootstrap && yarn clean:bootstrap && mkdir dist/css && cp -R node_modules/bootstrap/dist/css/* dist/css && yarn timing:stop copy:bootstrap",
     "copy": "yarn copy:sample && yarn copy:bootstrap",
     "build:js": "yarn timing:start webpack && webpack && yarn timing:stop webpack",
