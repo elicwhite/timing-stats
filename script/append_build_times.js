@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const processTimingLines = require('../src/process_timing_lines');
+const processTimingLines = require('../src/js/process_timing_lines');
 
 const rootPath = path.join(__dirname, '..');
 const inputPath = path.join(rootPath, 'temporary_build_data.txt');
