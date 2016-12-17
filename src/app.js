@@ -9,6 +9,10 @@ const App = {
     const input = document.getElementById('text-input');
     if (localStorage.inputJson) {
       input.value = localStorage.inputJson;
+    } else {
+      App.getSampleData().then(result => {
+        input.value = JSON.stringify(result, null, 2);
+      })
     }
 
     document.getElementById('process-text-input').addEventListener('click', () => {
@@ -25,6 +29,11 @@ const App = {
       ganttChart.run(stageData);
     });
 
+  },
+
+  getSampleData() {
+    return fetch('./sample_data.json')
+    .then(response => response.json());
   }
 };
 
