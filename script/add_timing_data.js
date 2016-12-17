@@ -6,21 +6,8 @@ var fs = require('fs');
 
 const rootPath = path.join(__dirname, '..');
 
-fs.appendFile(
-  path.join(path.join(rootPath, 'test_deploy_data.txt')),
-  process.env.TRAVIS_JOB_NUMBER,
-  function (err) {
-    if (err) {
-      console.error('Error writing to test_deploy_data.txt');
-      console.error(err.message);
-      console.error(err.stack);
-      process.exit(1);
-    }
-  }
-);
-
 ghpages.publish(rootPath, {
-  src: 'test_deploy_data.txt',
+  src: 'sample_data.json',
   add: true,
   branch: 'master',
   message: 'Updating sample data [skip ci]',

@@ -20,7 +20,7 @@
     "copy:bootstrap": "yarn timing:start copy:bootstrap && yarn clean:bootstrap && mkdir dist/css && cp -R node_modules/bootstrap/dist/css/* dist/css && yarn timing:stop copy:bootstrap",
     "copy": "yarn copy:sample && yarn copy:bootstrap",
     "build:js": "yarn timing:start webpack && webpack && yarn timing:stop webpack",
-    "build:sample-data": "yarn timing:start sample-data && yarn timing:stop sample-data",
+    "build:sample-data": "yarn timing:start sample-data && node ./script/append_build_times.js && yarn timing:stop sample-data",
     "build": "yarn build:js",
     "assets": "yarn copy && yarn build",
     "start": "yarn assets && webpack-dev-server --progress --colors --hot --content-base dist/",
