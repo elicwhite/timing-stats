@@ -29,6 +29,13 @@ describe('DataFactory', () => {
       });
     });
 
+    describe('.getLastId', () => {
+      it('should return the id for the last group', () => {
+        const stageData = dataFactory.from(getFakeData());
+        assert.strictEqual(2, stageData.getLastId());
+      });
+    });
+
     describe('.getStackedTimeRange', () => {
       it('should return the range of the stage times', () => {
         const stageData = dataFactory.from(getFakeData());

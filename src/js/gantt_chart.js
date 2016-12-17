@@ -1,8 +1,8 @@
 const d3 = require('d3');
 
 const GanttChart = {
-  run(stageData) {
-    const data = stageData.getGanttDataFormat(1);
+  run(stageData, id) {
+    const data = stageData.getGanttDataFormat(id);
 
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
         width = 960 - margin.left - margin.right,

@@ -27,6 +27,10 @@ DataFactory._StageData = class StageData {
     return Array.from(new Set(stages));
   }
 
+  getLastId() {
+    return this._data[this._data.length - 1].id;
+  }
+
   getStackedTimeRange() {
     const times = this.getStackedDataFormat()
     .map(group => {
