@@ -13,7 +13,7 @@ branches:
 deploy:
   skip_cleanup: true
   provider: script
-  script: yarn deploy
+  script: yarn deploy && cat temporary_build_data.txt
   on:
     branch: master
     node: 'node'

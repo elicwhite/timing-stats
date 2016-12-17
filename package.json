@@ -14,15 +14,21 @@
     "webpack-dev-server": "2.1.0-beta.12"
   },
   "scripts": {
-    "copy:sample": "cp test_deploy_data.txt dist/",
-    "copy:bootstrap": "rm -rf dist/css && mkdir dist/css && cp -R node_modules/bootstrap/dist/css/* dist/css",
+    "timing:start": "./script/timing.js START ",
+    "timing:stop": "./script/timing.js STOP ",
+    "copy:sample": "yarn timing:start copy:sample && cp test_deploy_data.txt dist/ && yarn timing:stop copy:sample",
+    "copy:bootstrap": "yarn timing:start copy:bootstrap && yarn clean:bootstrap && mkdir dist/css && cp -R node_modules/bootstrap/dist/css/* dist/css && yarn timing:stop copy:bootstrap",
     "copy": "yarn copy:sample && yarn copy:bootstrap",
-    "build:js": "webpack",
+    "build:js": "yarn timing:start webpack && webpack && yarn timing:stop webpack",
+    "build:sample-data": "yarn timing:start sample-data && yarn timing:stop sample-data",
     "build": "yarn build:js",
     "assets": "yarn copy && yarn build",
     "start": "yarn assets && webpack-dev-server --progress --colors --hot --content-base dist/",
-    "test": "mocha",
+    "test": "yarn timing:start mocha && mocha && yarn timing:stop mocha",
+    "clean:bootstrap": "rm -rf dist/css",
     "clean:gh-pages": "rm -rf node_modules/gh-pages/.cache",
-    "deploy": "yarn assets && yarn clean:gh-pages && node ./script/deploy.js && yarn clean:gh-pages && node ./script/add_timing_data.js"
+    "deploy:gh-pages": "yarn timing:start deploy:gh-pages && yarn clean:gh-pages && node ./script/deploy.js && yarn timing:stop deploy:gh-pages",
+    "deploy:timing-data": "yarn build:sample-data && yarn timing:start deploy:timing-data && yarn clean:gh-pages && node ./script/add_timing_data.js && yarn timing:stop deploy:timing-data",
+    "deploy": "yarn assets && yarn deploy:gh-pages && yarn clean:gh-pages && node ./script/add_timing_data.js"
   }
 }
