@@ -1,6 +1,5 @@
 language: node_js
 preinstall: ./script/timing.js START yarn
-install: yarn && ./script/timing.js STOP yarn
 script: yarn test
 node_js:
 - node
