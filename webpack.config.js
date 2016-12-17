@@ -3,7 +3,7 @@
 const path = require('path');
 
 const WebpackConfig = {
-    entry: "./src/index.js",
+    entry: "./src/js/index.js",
     output: {
         path: path.join(__dirname, 'dist'),
         filename: "index.js"
