@@ -1,7 +1,5 @@
 'use strict';
 
-const moment = require('moment');
-
 const DataFactory = {
   from(data) {
     const stageData = new DataFactory._StageData(data);
