@@ -29,7 +29,6 @@ const App = {
   },
 
   run(data) {
-    console.log(data);
     const stageData = dataFactory.from(data);
     stageData.cleanData();
     const dataChart = new DataChart(stageData);

@@ -56,6 +56,12 @@ const StackedChart = {
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
 
+    svg.append("text")
+      .attr("y", height + margin.top + 30)
+      .attr("x", (width / 2))
+      .style("text-anchor", "middle")
+      .text("Build ID");
+
     g.append("g")
         .attr("class", "axis axis--y")
         .call(
@@ -63,6 +69,14 @@ const StackedChart = {
           .ticks(10)
           .tickFormat(d3.timeFormat("%M:%S"))
         );
+
+  svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - (margin.left / 2))
+      .attr("x", 0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Minute:Second");
 
     var legend = svg.selectAll(".legend")
       .data(color.domain().slice().reverse())

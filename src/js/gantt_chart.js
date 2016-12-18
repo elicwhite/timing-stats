@@ -23,15 +23,6 @@ const GanttChart = {
     x.domain([0, d3.max(data, function(stage) { return stage.end; })]);
     y.domain(data.map(function(stage) { return stage.stage; }));
 
-    g.append("g")
-        .attr("class", "axis axis--x")
-        .attr("transform", "translate(0," + height + ")")
-        .call(
-          d3.axisBottom(x)
-          .ticks(10)
-          .tickFormat(d3.timeFormat("%M:%S"))
-        );
-
     g.selectAll(".bar")
       .data(data)
       .enter().append("rect")
@@ -47,6 +38,21 @@ const GanttChart = {
         .attr("rx", 5)
         .attr("ry", 5)
         .style("fill", function(d) { return color(d.stage); });
+
+    g.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
+        .call(
+          d3.axisBottom(x)
+          .ticks(10)
+          .tickFormat(d3.timeFormat("%M:%S"))
+        );
+
+    svg.append("text")
+      .attr("y", height + margin.top + 30)
+      .attr("x", (width / 2))
+      .style("text-anchor", "middle")
+      .text("Minute:Second");
 
     g.append("g")
         .attr("class", "axis axis--y")
