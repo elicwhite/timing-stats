@@ -42,21 +42,21 @@ DataFactory._StageData = class StageData {
       return Object.keys(group)
       .filter(key => key !== 'id')
       .reduce((acc, key) => {
-        acc += group[key];
+        acc += group[key].getTime();
         return acc;
       }, 0);
 
       return keys;
     });
 
-    return [0, Math.max.apply(null, times)];
+    return [new Date(0), new Date(Math.max.apply(null, times))];
   }
 
   getStackedDataFormat() {
     const groups = this._data.map(group => {
       return this._normalizeStages(group.stages)
       .reduce((acc, stage) => {
-        acc[stage.stage] = stage.end - stage.start;
+        acc[stage.stage] = new Date(stage.end - stage.start);
         return acc;
       }, {
         id: group.id
@@ -83,7 +83,7 @@ DataFactory._StageData = class StageData {
 
       return this._normalizeStages(criticalStages)
       .reduce((acc, stage) => {
-        acc[stage.stage] = stage.end - stage.start;
+        acc[stage.stage] = new Date(stage.end - stage.start);
         return acc;
       }, {
         id: group.id
@@ -125,7 +125,7 @@ DataFactory._StageData = class StageData {
 
     return groups.map(group => {
       uniqueKeys.forEach(key => {
-        group[key] = group[key] === undefined ? 0 : group[key];
+        group[key] = group[key] === undefined ? new Date(0) : group[key];
       });
 
       return group;

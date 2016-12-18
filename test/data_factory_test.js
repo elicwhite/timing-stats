@@ -117,7 +117,7 @@ describe('DataFactory', () => {
     describe('.getStackedTimeRange', () => {
       it('should return the range of the stage times', () => {
         const stageData = dataFactory.from(getFakeData());
-        assert.deepEqual([0, 6], stageData.getStackedTimeRange());
+        assert.deepEqual([new Date(0), new Date(6)], stageData.getStackedTimeRange());
       })
     });
 
@@ -126,14 +126,14 @@ describe('DataFactory', () => {
         const stageData = dataFactory.from(getFakeData());
         assert.deepEqual(stageData.getStackedDataFormat(), [{
           id: 1,
-          stage1: 4,
-          stage2: 2,
-          stage3: 0
+          stage1: new Date(4),
+          stage2: new Date(2),
+          stage3: new Date(0)
         }, {
           id: 2,
-          stage1: 2,
-          stage2: 0,
-          stage3: 3
+          stage1: new Date(2),
+          stage2: new Date(0),
+          stage3: new Date(3)
         }]);
       });
     });
@@ -176,14 +176,14 @@ describe('DataFactory', () => {
 
         assert.deepEqual(stageData.getCriticalPathStackedDataFormat(), [{
           id: 1,
-          stage1: 4,
-          stage2: 0,
-          stage3: 2
+          stage1: new Date(4),
+          stage2: new Date(0),
+          stage3: new Date(2)
         }, {
           id: 2,
-          stage1: 0,
-          stage2: 8,
-          stage3: 0
+          stage1: new Date(0),
+          stage2: new Date(8),
+          stage3: new Date(0)
         }]);
       });
     });

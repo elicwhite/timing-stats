@@ -1,28 +1,12 @@
 const d3 = require('d3');
 
 const StackedChart = {
-  getStackedTimeRange(data) {
-    const times = data
-    .map(group => {
-      return Object.keys(group)
-      .filter(key => key !== 'id')
-      .reduce((acc, key) => {
-        acc += group[key];
-        return acc;
-      }, 0);
-
-      return keys;
-    });
-
-    return [0, Math.max.apply(null, times)];
-  },
-
   run(selector, stageData, methodName, dataChart) {
     const data = stageData[methodName]();
 
     const stages = stageData.getStages();
 
-    const timeRange = StackedChart.getStackedTimeRange(data);
+    const timeRange = stageData.getStackedTimeRange();
 
     var margin = {top: 20, right: 20, bottom: 50, left: 40},
         width = 960 - margin.left - margin.right,
@@ -38,7 +22,7 @@ const StackedChart = {
       .range([0, width-100])
       .domain(data.map(d => d.id));
 
-    var y = d3.scaleLinear()
+    var y = d3.scaleTime()
       .rangeRound([height, 0])
       .domain(timeRange);
 
@@ -74,7 +58,11 @@ const StackedChart = {
 
     g.append("g")
         .attr("class", "axis axis--y")
-        .call(d3.axisLeft(y).ticks(10));
+        .call(
+          d3.axisLeft(y)
+          .ticks(10)
+          .tickFormat(d3.timeFormat("%M:%S"))
+        );
 
     var legend = svg.selectAll(".legend")
       .data(color.domain().slice().reverse())
