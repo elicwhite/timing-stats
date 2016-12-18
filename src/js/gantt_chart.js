@@ -15,7 +15,7 @@ const GanttChart = {
     var g = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var x = d3.scaleLinear().rangeRound([0, width]),
+    var x = d3.scaleTime().rangeRound([0, width]),
         y = d3.scaleBand().rangeRound([height, 0]).padding(0.1);
 
     var color = dataChart.getStageColorScale();
@@ -26,7 +26,11 @@ const GanttChart = {
     g.append("g")
         .attr("class", "axis axis--x")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x).ticks(10));
+        .call(
+          d3.axisBottom(x)
+          .ticks(10)
+          .tickFormat(d3.timeFormat("%M:%S"))
+        );
 
     g.selectAll(".bar")
       .data(data)
