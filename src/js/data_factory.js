@@ -68,10 +68,11 @@ DataFactory._StageData = class StageData {
 
   getCriticalPathStackedDataFormat() {
     const groups = this._data.map(group => {
-      const reverseSortedStages = group.stages.sort((stage1, stage2) => {
-        return stage2.end - stage1.end;
-      });
-
+      const reverseSortedStages = group.stages
+        .slice(0)
+        .sort((stage1, stage2) => {
+          return stage2.end - stage1.end;
+        });
 
       const criticalStages = reverseSortedStages.reduce((acc, stage) => {
         if (stage.end <= acc[acc.length - 1].start) {
@@ -111,10 +112,11 @@ DataFactory._StageData = class StageData {
     }, stages[0].start);
 
     return stages.map(stage => {
-      stage.start = stage.start - startTime;
-      stage.end = stage.end - startTime;
-      return stage;
-    })
+      return Object.assign({}, stage, {
+        start: stage.start - startTime,
+        end: stage.end - startTime
+      });
+    });
   }
 
   _ensureStagesAcrossGroups(groups) {

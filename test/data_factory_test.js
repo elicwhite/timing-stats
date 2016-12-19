@@ -136,11 +136,21 @@ describe('DataFactory', () => {
           stage3: 3
         }]);
       });
+
+      it('should not mutate the original data', () => {
+        const data = getFakeData();
+        const cloneOriginalData = JSON.parse(JSON.stringify(data));
+        const stageData = dataFactory.from(data);
+        stageData.getCriticalPathStackedDataFormat();
+
+        const afterData = stageData.getData();
+        assert.deepEqual(cloneOriginalData, afterData);
+      });
     });
 
     describe('.getCriticalPathStackedDataFormat', () => {
-      it('should return the critical path stages', () => {
-        const fakeData = [{
+      function getStackedChartData() {
+        return [{
           id: 1,
           stages: [{
             stage: 'stage1',
@@ -171,8 +181,10 @@ describe('DataFactory', () => {
             end: 1013
           }]
         }];
+      }
 
-        const stageData = dataFactory.from(fakeData);
+      it('should return the critical path stages', () => {
+        const stageData = dataFactory.from(getStackedChartData());
 
         assert.deepEqual(stageData.getCriticalPathStackedDataFormat(), [{
           id: 1,
@@ -185,6 +197,16 @@ describe('DataFactory', () => {
           stage2: 8,
           stage3: 0
         }]);
+      });
+
+      it('should not mutate the original data', () => {
+        const data = getStackedChartData();
+        const cloneOriginalData = JSON.parse(JSON.stringify(data));
+        const stageData = dataFactory.from(data);
+        stageData.getCriticalPathStackedDataFormat();
+
+        const afterData = stageData.getData();
+        assert.deepEqual(cloneOriginalData, afterData);
       });
     });
 
@@ -201,6 +223,16 @@ describe('DataFactory', () => {
           start: 0,
           end: 2
         }]);
+      });
+
+      it('should not mutate the original data', () => {
+        const data = getFakeData();
+        const cloneOriginalData = JSON.parse(JSON.stringify(data));
+        const stageData = dataFactory.from(data);
+        stageData.getCriticalPathStackedDataFormat();
+
+        const afterData = stageData.getData();
+        assert.deepEqual(cloneOriginalData, afterData);
       });
     });
   });
