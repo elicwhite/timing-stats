@@ -6,76 +6,107 @@ class GanttChart {
   constructor(stageData, dataChart, svg) {
     this.stageData = stageData;
     this.dataChart = dataChart;
-    this.svg = svg;
+    this.svg = d3.select(svg);
   }
 
-  run(id) {
-    const data = this.stageData.getGanttDataFormat(id);
-
+  setup() {
     const margin = {
       top: 20, right: 20, bottom: 30, left: 40
     };
     const width = 960 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
 
-    const svg = d3.select(this.svg)
+    this.svg
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom);
 
-    const g = svg.append('g')
+    this.chart = this.svg.append('g')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    const x = d3.scaleTime().rangeRound([0, width]);
-    const y = d3.scaleBand().rangeRound([height, 0]).padding(0.1);
+    this.xScale = d3.scaleTime().rangeRound([0, width]);
+    this.yScale = d3.scaleBand().rangeRound([height, 0]).padding(0.1);
 
-    const color = this.dataChart.getStageColorScale();
+    this.colorScale = this.dataChart.getStageColorScale();
 
-    x.domain([0, d3.max(data, (stage) => {
-      return stage.end;
-    })]);
-    y.domain(data.map((stage) => {
-      return stage.stage;
-    }));
+    this.xAxis = d3.axisBottom(this.xScale)
+      .ticks(10)
+      .tickFormat(d3.timeFormat('%M:%S'));
 
-    g.selectAll('.bar')
-      .data(data)
-      .enter().append('rect')
-      .attr('class', 'bar')
-      .attr('y', (d) => {
-        return y(d.stage);
-      })
-      .attr('x', (d) => {
-        return x(d.start);
-      })
-      .attr('height', y.bandwidth())
-      .attr('width', (d) => {
-        return Math.max(3, x(d.end) - x(d.start));
-      })
-      .attr('rx', 5)
-      .attr('ry', 5)
-      .style('fill', (d) => {
-        return color(d.stage);
-      });
+    this.yAxis = d3.axisRight(this.yScale);
 
-    g.append('g')
+    this.chart.append('g')
       .attr('class', 'axis axis--x')
-      .attr('transform', 'translate(0,' + height + ')')
-      .call(
-          d3.axisBottom(x)
-            .ticks(10)
-            .tickFormat(d3.timeFormat('%M:%S'))
-        );
+      .attr('transform', 'translate(0,' + height + ')');
 
-    svg.append('text')
+    this.chart.append('g')
+      .attr('class', 'axis axis--y');
+
+    this.svg.append('text')
       .attr('y', height + margin.top + 30)
       .attr('x', (width / 2))
       .style('text-anchor', 'middle')
       .text('Minute:Second');
-
-    g.append('g')
-      .attr('class', 'axis axis--y')
-      .call(d3.axisRight(y));
   }
-};
+
+  run(id) {
+    const data = this.stageData.getGanttDataFormat(id);
+
+    this.xScale.domain([0, d3.max(data, (stage) => {
+      return stage.end;
+    })]);
+    this.yScale.domain(data.map((stage) => {
+      return stage.stage;
+    }));
+
+    const bars = this.chart.selectAll('.bar')
+      .data(data);
+
+    bars.enter()
+      .append('rect')
+      .transition()
+      .duration(300)
+      .attr('class', 'bar')
+      .attr('y', (d) => {
+        return this.yScale(d.stage);
+      })
+      .attr('x', (d) => {
+        return this.xScale(d.start);
+      })
+      .attr('height', this.yScale.bandwidth())
+      .attr('width', (d) => this.getBarWidth(d))
+      .attr('rx', 5)
+      .attr('ry', 5)
+      .style('fill', (d) => {
+        return this.colorScale(d.stage);
+      });
+
+    bars.transition()
+      .duration(300)
+      .attr('y', (d) => {
+        return this.yScale(d.stage);
+      })
+      .attr('x', (d) => {
+        return this.xScale(d.start);
+      })
+      .attr('height', this.yScale.bandwidth())
+      .attr('width', (d) => this.getBarWidth(d));
+
+    bars.exit()
+      .transition()
+      .duration(300)
+      .attr('x', this.xScale(0))
+      .attr('width', 0)
+      .style('fill-opacity', 1e-6)
+      .remove();
+
+    this.svg.select('.axis--x').call(this.xAxis);
+
+    this.svg.select('.axis--y').call(this.yAxis);
+  }
+
+  getBarWidth(datum) {
+    return Math.max(3, this.xScale(datum.end) - this.xScale(datum.start));
+  }
+}
 
 module.exports = GanttChart;

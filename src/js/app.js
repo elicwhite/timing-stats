@@ -39,6 +39,9 @@ const App = {
       document.getElementsByClassName('gantt-chart-graph')[0]
     );
 
+    ganttChart.setup();
+    window.gantt = ganttChart;
+
     stackedChart.run(
       document.getElementsByClassName('stacked-chart-graph')[0],
       stageData,
