@@ -27,7 +27,7 @@ DataFactory._StageData = class StageData {
     const stages = this._data.map(group => {
       return group.stages.map(stage => stage.stage);
     })
-    .reduce((arr1, arr2) => arr1.concat(arr2));
+    .reduceRight((arr1, arr2) => arr1.concat(arr2));
 
     return Array.from(new Set(stages));
   }

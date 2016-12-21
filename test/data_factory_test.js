@@ -101,7 +101,7 @@ describe('DataFactory', () => {
     describe('.getStages', () => {
       it('should return an array of stages', () => {
         const stageData = dataFactory.from(getFakeData());
-        assert.sameMembers(['stage1', 'stage2', 'stage3'], stageData.getStages());
+        assert.deepEqual(['stage3', 'stage1', 'stage2'], stageData.getStages());
       });
     });
 
