@@ -2,7 +2,7 @@
 
 const d3 = require('d3');
 
-const TRANSITION_DURATION = 80;
+const TRANSITION_DURATION = 150;
 
 class GanttChart {
   constructor(stageData, dataChart, svg) {
@@ -109,9 +109,15 @@ class GanttChart {
       .style('fill-opacity', 1e-6)
       .remove();
 
-    this.svg.select('.axis--x').call(this.xAxis);
+    this.svg.select('.axis--x')
+      .transition()
+      .duration(TRANSITION_DURATION)
+      .call(this.xAxis);
 
-    this.svg.select('.axis--y').call(this.yAxis);
+    this.svg.select('.axis--y')
+      .transition()
+      .duration(TRANSITION_DURATION)
+      .call(this.yAxis);
   }
 
   getBarWidth(datum) {
