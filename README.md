@@ -26,7 +26,7 @@ When you have stages that run in parallel, it may not actually matter if certain
 In order to provide this information, we only show the stages that are on the critical path for the given build. In a completely sequential build, this will be the same as the regular stacked chart. For builds that utilize parallelization, this will be much more valuable.
 
 ## Gantt Chart
-The stacked charts do a great job of showing you the slow parts of your builds over time. As you make improvements you can see the impact of those changes and see what might have become the new critical path. However, the stacked charts don't give good visability into what actually happens in a build.
+The stacked charts do a great job of showing you the slow parts of your builds over time. As you make improvements you can see the impact of those changes and see what might have become the new critical path. However, the stacked charts don't give good visibility into what actually happens in a build.
 
 The gantt chart will show you what things occurred and when, in a build. This is useful for understanding the parallelization and dependencies of stages.
 
@@ -80,4 +80,4 @@ The [JSON schema](http://json-schema.org/) description of the data format is as 
 ```
 
 ## Full Example
-This web application monitors it's own build and deployment process, reporting back the timing data as the sample data for the application. You can see the JSON file for the sample data [here](sample_data.json).
+This web application monitors its own build and deployment process, reporting back the timing data as the sample data for the application. You can see the JSON file for the sample data [here](sample_data.json).
