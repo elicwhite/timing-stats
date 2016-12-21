@@ -2,7 +2,6 @@ timing-stats
 =============
 Slow builds? Want to make it faster? timing-stats shows you the different stages of your builds to know what can be sped up. Different charts give you different information into your builds.
 
-- [timing-stats](#timing-stats)
 - [Chart Types](#chart-types)
   * [Stacked Chart](#stacked-chart)
   * [Critical Path Chart](#critical-path-chart)
