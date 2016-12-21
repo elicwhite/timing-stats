@@ -21,7 +21,7 @@ STOP::webpack::1481963071327
       stage: 'webpack',
       start: 1481963068634,
       end: 1481963071327
-    }]
+    }];
 
     assert.deepEqual(expected, result);
   });

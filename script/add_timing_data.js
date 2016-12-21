@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-var ghpages = require('gh-pages');
-var path = require('path');
-var fs = require('fs');
+const ghpages = require('gh-pages');
+const path = require('path');
+const fs = require('fs');
 
 const rootPath = path.join(__dirname, '..');
 

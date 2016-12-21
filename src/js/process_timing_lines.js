@@ -10,7 +10,7 @@ const ProcessTimingLines = {
 
       if (!acc[stage]) {
         acc[stage] = {
-          stage: stage
+          stage
         };
       }
 

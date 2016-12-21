@@ -82,7 +82,7 @@ describe('DataFactory', () => {
           id: 2,
           stages: [{
             stage: 'stage3',
-            start: 1009,
+            start: 1009
           }]
         }];
         const stageData = dataFactory.from(data);
@@ -118,7 +118,7 @@ describe('DataFactory', () => {
       it('should return the range of the stage times', () => {
         const stageData = dataFactory.from(getFakeData());
         assert.deepEqual([0, 6], stageData.getStackedTimeRange());
-      })
+      });
     });
 
     describe('.getStackedDataFormat', () => {

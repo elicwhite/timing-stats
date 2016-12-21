@@ -27,7 +27,7 @@ DataFactory._StageData = class StageData {
     const stages = this._data.map(group => {
       return group.stages.map(stage => stage.stage);
     })
-    .reduce((arr1, arr2) => arr1.concat(arr2))
+    .reduce((arr1, arr2) => arr1.concat(arr2));
 
     return Array.from(new Set(stages));
   }
@@ -40,11 +40,11 @@ DataFactory._StageData = class StageData {
     const times = this.getStackedDataFormat()
     .map(group => {
       return Object.keys(group)
-      .filter(key => key !== 'id')
-      .reduce((acc, key) => {
-        acc += group[key];
-        return acc;
-      }, 0);
+        .filter(key => key !== 'id')
+        .reduce((acc, key) => {
+          acc += group[key];
+          return acc;
+        }, 0);
 
       return keys;
     });
@@ -55,12 +55,12 @@ DataFactory._StageData = class StageData {
   getStackedDataFormat() {
     const groups = this._data.map(group => {
       return this._normalizeStages(group.stages)
-      .reduce((acc, stage) => {
-        acc[stage.stage] = stage.end - stage.start;
-        return acc;
-      }, {
-        id: group.id
-      });
+        .reduce((acc, stage) => {
+          acc[stage.stage] = stage.end - stage.start;
+          return acc;
+        }, {
+          id: group.id
+        });
     });
 
     return this._ensureStagesAcrossGroups(groups);
@@ -80,15 +80,15 @@ DataFactory._StageData = class StageData {
         }
 
         return acc;
-      }, [reverseSortedStages[0]])
+      }, [reverseSortedStages[0]]);
 
       return this._normalizeStages(criticalStages)
-      .reduce((acc, stage) => {
-        acc[stage.stage] = stage.end - stage.start;
-        return acc;
-      }, {
-        id: group.id
-      });
+        .reduce((acc, stage) => {
+          acc[stage.stage] = stage.end - stage.start;
+          return acc;
+        }, {
+          id: group.id
+        });
     });
 
     return this._ensureStagesAcrossGroups(groups);
@@ -96,14 +96,14 @@ DataFactory._StageData = class StageData {
 
   getGanttDataFormat(id) {
     const group = this._data.filter(group => group.id === id);
-    if(!group.length) {
+    if (!group.length) {
       throw new Error('no group found with that id');
     }
 
     return this._normalizeStages(group[0].stages)
-    .sort((stage1, stage2) => {
-      return stage2.start - stage1.start;
-    });
+      .sort((stage1, stage2) => {
+        return stage2.start - stage1.start;
+      });
   }
 
   _normalizeStages(stages) {

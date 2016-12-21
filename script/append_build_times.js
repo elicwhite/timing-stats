@@ -14,7 +14,7 @@ const stages = processTimingLines.process(input.toString());
 
 const output = {
   id: parseInt(process.env.TRAVIS_BUILD_NUMBER),
-  stages: stages
+  stages
 };
 
 const sampleData = fs.readFileSync(jsonPath).toString();

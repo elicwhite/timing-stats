@@ -25,7 +25,7 @@ const App = {
 
   getSampleData() {
     return fetch('./sample_data.json')
-    .then(response => response.json());
+      .then(response => response.json());
   },
 
   run(data) {
