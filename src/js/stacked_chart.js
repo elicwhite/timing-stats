@@ -1,3 +1,5 @@
+'use strict';
+
 const d3 = require('d3');
 
 const StackedChart = {
@@ -8,11 +10,12 @@ const StackedChart = {
 
     const timeRange = stageData.getStackedTimeRange();
 
-    let margin = {
-        top: 20, right: 20, bottom: 50, left: 40
-      },
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+    const margin = {
+      top: 20, right: 20, bottom: 50, left: 40
+    };
+
+    const width = 960 - margin.left - margin.right;
+    const height = 500 - margin.top - margin.bottom;
 
     const svg = d3.select(selector).append('svg')
         .attr('width', width + margin.left + margin.right)

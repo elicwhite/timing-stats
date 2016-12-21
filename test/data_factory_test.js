@@ -4,8 +4,6 @@ const assert = require('chai').assert;
 const dataFactory = require('../src/js/data_factory');
 
 describe('DataFactory', () => {
-  let stageData;
-
   describe('.from', () => {
     it('should return a StageData instance', () => {
       const stageData = dataFactory.from(getFakeData());

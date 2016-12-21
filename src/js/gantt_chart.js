@@ -1,14 +1,16 @@
+'use strict';
+
 const d3 = require('d3');
 
 const GanttChart = {
   run(stageData, id, dataChart) {
     const data = stageData.getGanttDataFormat(id);
 
-    let margin = {
-        top: 20, right: 20, bottom: 30, left: 40
-      },
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+    const margin = {
+      top: 20, right: 20, bottom: 30, left: 40
+    };
+    const width = 960 - margin.left - margin.right;
+    const height = 500 - margin.top - margin.bottom;
 
     const svg = d3.select('#gantt-chart').append('svg')
       .attr('width', width + margin.left + margin.right)
@@ -17,8 +19,8 @@ const GanttChart = {
     const g = svg.append('g')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    let x = d3.scaleTime().rangeRound([0, width]),
-      y = d3.scaleBand().rangeRound([height, 0]).padding(0.1);
+    const x = d3.scaleTime().rangeRound([0, width]);
+    const y = d3.scaleBand().rangeRound([height, 0]).padding(0.1);
 
     const color = dataChart.getStageColorScale();
 

@@ -45,8 +45,6 @@ DataFactory._StageData = class StageData {
           acc += group[key];
           return acc;
         }, 0);
-
-      return keys;
     });
 
     return [0, Math.max.apply(null, times)];

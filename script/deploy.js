@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+/* eslint-disable no-console */
+
+'use strict';
+
 const ghpages = require('gh-pages');
 const path = require('path');
 
