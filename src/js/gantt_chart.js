@@ -3,9 +3,10 @@
 const d3 = require('d3');
 
 class GanttChart {
-  constructor(stageData, dataChart) {
+  constructor(stageData, dataChart, svg) {
     this.stageData = stageData;
     this.dataChart = dataChart;
+    this.svg = svg;
   }
 
   run(id) {
@@ -17,7 +18,7 @@ class GanttChart {
     const width = 960 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
 
-    const svg = d3.select('#gantt-chart').append('svg')
+    const svg = d3.select(this.svg)
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom);
 

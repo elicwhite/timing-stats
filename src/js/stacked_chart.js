@@ -3,7 +3,7 @@
 const d3 = require('d3');
 
 const StackedChart = {
-  run(selector, stageData, methodName, dataChart) {
+  run(element, stageData, methodName, dataChart) {
     const data = stageData[methodName]();
 
     const stages = stageData.getStages();
@@ -17,7 +17,7 @@ const StackedChart = {
     const width = 960 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
 
-    const svg = d3.select(selector).append('svg')
+    const svg = d3.select(element)
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
       .append('g')

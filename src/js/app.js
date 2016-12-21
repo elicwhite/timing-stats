@@ -32,10 +32,26 @@ const App = {
     const stageData = dataFactory.from(data);
     stageData.cleanData();
     const dataChart = new DataChart(stageData);
-    const ganttChart = new GanttChart(stageData, dataChart);
 
-    stackedChart.run('#stacked-chart', stageData, 'getStackedDataFormat', dataChart);
-    stackedChart.run('#critical-path-chart', stageData, 'getCriticalPathStackedDataFormat', dataChart);
+    const ganttChart = new GanttChart(
+      stageData,
+      dataChart,
+      document.getElementsByClassName('gantt-chart-graph')[0]
+    );
+
+    stackedChart.run(
+      document.getElementsByClassName('stacked-chart-graph')[0],
+      stageData,
+      'getStackedDataFormat',
+      dataChart
+    );
+
+    stackedChart.run(
+      document.getElementsByClassName('critical-path-graph')[0],
+      stageData,
+      'getCriticalPathStackedDataFormat',
+      dataChart
+    );
 
     ganttChart.run(stageData.getLastId());
   }
