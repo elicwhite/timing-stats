@@ -1,7 +1,7 @@
 'use strict';
 
 const stackedChart = require('./stacked_chart');
-const ganttChart = require('./gantt_chart');
+const GanttChart = require('./gantt_chart');
 const dataFactory = require('./data_factory');
 const DataChart = require('./data_chart');
 
@@ -32,10 +32,12 @@ const App = {
     const stageData = dataFactory.from(data);
     stageData.cleanData();
     const dataChart = new DataChart(stageData);
+    const ganttChart = new GanttChart(stageData, dataChart);
 
     stackedChart.run('#stacked-chart', stageData, 'getStackedDataFormat', dataChart);
     stackedChart.run('#critical-path-chart', stageData, 'getCriticalPathStackedDataFormat', dataChart);
-    ganttChart.run(stageData, stageData.getLastId(), dataChart);
+
+    ganttChart.run(stageData.getLastId());
   }
 };
 
