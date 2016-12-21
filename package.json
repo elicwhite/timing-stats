@@ -7,8 +7,10 @@
     "bootstrap": "^3.3.7",
     "chai": "^3.5.0",
     "d3": "^4.4.0",
+    "eslint": "^3.12.2",
     "gh-pages": "^0.12.0",
     "mocha": "^3.2.0",
+    "wealthfront-javascript": "^3.2.0",
     "webpack": "2.2.0-rc.0",
     "webpack-dev-server": "2.1.0-beta.12"
   },
@@ -23,6 +25,7 @@
     "build:js": "yarn timing:start webpack && webpack && yarn timing:stop webpack",
     "build:sample-data": "node ./script/append_build_times.js",
     "build": "yarn build:js",
+    "style": "eslint script src test",
     "assets": "yarn copy && yarn build",
     "start": "yarn assets && webpack-dev-server --progress --colors --hot --content-base dist/",
     "test": "yarn timing:start mocha && mocha && yarn timing:stop mocha",
