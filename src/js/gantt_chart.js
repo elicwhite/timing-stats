@@ -59,6 +59,8 @@ class GanttChart {
       return;
     }
 
+    this.buildId = id;
+
     const data = this.stageData.getGanttDataFormat(id);
 
     this.xScale.domain([0, d3.max(data, (stage) => {
