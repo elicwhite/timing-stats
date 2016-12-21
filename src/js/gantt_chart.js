@@ -71,7 +71,7 @@ class GanttChart {
     }));
 
     const bars = this.chart.selectAll('.bar')
-      .data(data);
+      .data(data, stage => stage.stage);
 
     bars.enter()
       .append('rect')
