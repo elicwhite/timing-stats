@@ -2,7 +2,7 @@
 
 const d3 = require('d3');
 
-const TRANSITION_DURATION = 150;
+const TRANSITION_DURATION = 300;
 
 class GanttChart {
   constructor(stageData, dataChart, svg) {
