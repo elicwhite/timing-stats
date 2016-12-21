@@ -111,6 +111,26 @@ const StackedChart = {
       .text((d) => {
         return d;
       });
+
+    g.append('rect')
+      .attr('class', 'chart-overlay')
+      .attr('width', width)
+      .attr('height', height)
+      .on('mousemove', mouseMove);
+
+    function mouseMove() {
+      const xPos = d3.mouse(this)[0];
+      const left = x.range()[0];
+      const width = x.step();
+
+      const offset = x.domain().map((array, index) => {
+        return left + (width * index) - width / 2;
+      });
+
+      const index = d3.bisect(offset, xPos);
+      const buildId = x.domain()[index - 1];
+      console.log(buildId);
+    }
   }
 };
 
