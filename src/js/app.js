@@ -46,14 +46,16 @@ const App = {
       document.getElementsByClassName('stacked-chart-graph')[0],
       stageData,
       'getStackedDataFormat',
-      dataChart
+      dataChart,
+      ganttChart.run
     );
 
     stackedChart.run(
       document.getElementsByClassName('critical-path-graph')[0],
       stageData,
       'getCriticalPathStackedDataFormat',
-      dataChart
+      dataChart,
+      ganttChart.run
     );
 
     ganttChart.run(stageData.getLastId());

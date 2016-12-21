@@ -3,7 +3,7 @@
 const d3 = require('d3');
 
 const StackedChart = {
-  run(element, stageData, methodName, dataChart) {
+  run(element, stageData, methodName, dataChart, callback) {
     const data = stageData[methodName]();
 
     const stages = stageData.getStages();
@@ -129,7 +129,7 @@ const StackedChart = {
 
       const index = d3.bisect(offset, xPos);
       const buildId = x.domain()[index - 1];
-      console.log(buildId);
+      callback(buildId);
     }
   }
 };

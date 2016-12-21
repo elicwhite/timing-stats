@@ -2,11 +2,17 @@
 
 const d3 = require('d3');
 
+const TRANSITION_DURATION = 80;
+
 class GanttChart {
   constructor(stageData, dataChart, svg) {
     this.stageData = stageData;
     this.dataChart = dataChart;
     this.svg = d3.select(svg);
+
+    this.run = this.run.bind(this);
+    this.getBarWidth = this.getBarWidth.bind(this);
+    this.buildId = undefined;
   }
 
   setup() {
@@ -49,6 +55,10 @@ class GanttChart {
   }
 
   run(id) {
+    if (this.buildId === id) {
+      return;
+    }
+
     const data = this.stageData.getGanttDataFormat(id);
 
     this.xScale.domain([0, d3.max(data, (stage) => {
@@ -63,25 +73,25 @@ class GanttChart {
 
     bars.enter()
       .append('rect')
-      .transition()
-      .duration(300)
       .attr('class', 'bar')
       .attr('y', (d) => {
         return this.yScale(d.stage);
       })
-      .attr('x', (d) => {
-        return this.xScale(d.start);
-      })
       .attr('height', this.yScale.bandwidth())
-      .attr('width', (d) => this.getBarWidth(d))
       .attr('rx', 5)
       .attr('ry', 5)
       .style('fill', (d) => {
         return this.colorScale(d.stage);
-      });
+      })
+      .transition()
+      .duration(TRANSITION_DURATION)
+      .attr('x', (d) => {
+        return this.xScale(d.start);
+      })
+      .attr('width', (d) => this.getBarWidth(d));
 
     bars.transition()
-      .duration(300)
+      .duration(TRANSITION_DURATION)
       .attr('y', (d) => {
         return this.yScale(d.stage);
       })
@@ -89,11 +99,11 @@ class GanttChart {
         return this.xScale(d.start);
       })
       .attr('height', this.yScale.bandwidth())
-      .attr('width', (d) => this.getBarWidth(d));
+      .attr('width', this.getBarWidth);
 
     bars.exit()
       .transition()
-      .duration(300)
+      .duration(TRANSITION_DURATION)
       .attr('x', this.xScale(0))
       .attr('width', 0)
       .style('fill-opacity', 1e-6)
