@@ -85,6 +85,7 @@ class GanttChart {
       .style('fill', (d) => {
         return this.colorScale(d.stage);
       })
+      .style('fill-opacity', 1)
       .transition()
       .duration(TRANSITION_DURATION)
       .attr('x', (d) => {
@@ -101,14 +102,15 @@ class GanttChart {
         return this.xScale(d.start);
       })
       .attr('height', this.yScale.bandwidth())
-      .attr('width', this.getBarWidth);
+      .attr('width', this.getBarWidth)
+      .style('fill-opacity', 1);
 
     bars.exit()
       .transition()
       .duration(TRANSITION_DURATION)
       .attr('x', this.xScale(0))
       .attr('width', 0)
-      .style('fill-opacity', 1e-6)
+      .style('fill-opacity', 0)
       .remove();
 
     this.svg.select('.axis--x')
