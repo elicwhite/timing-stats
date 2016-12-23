@@ -2,7 +2,7 @@
 
 const d3 = require('d3');
 
-const StackedChart = {
+class StackedChart {
   run(element, stageData, methodName, dataChart, callback) {
     const data = stageData[methodName]();
 
@@ -132,6 +132,6 @@ const StackedChart = {
       callback(buildId);
     }
   }
-};
+}
 
 module.exports = StackedChart;

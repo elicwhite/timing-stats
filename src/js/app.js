@@ -1,6 +1,6 @@
 'use strict';
 
-const stackedChart = require('./stacked_chart');
+const StackedChart = require('./stacked_chart');
 const GanttChart = require('./gantt_chart');
 const dataFactory = require('./data_factory');
 const DataChart = require('./data_chart');
@@ -41,6 +41,7 @@ const App = {
 
     ganttChart.setup();
     window.gantt = ganttChart;
+    const stackedChart = new StackedChart();
 
     stackedChart.run(
       document.getElementsByClassName('stacked-chart-graph')[0],
