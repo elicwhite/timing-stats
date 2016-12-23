@@ -3,12 +3,20 @@
 const d3 = require('d3');
 
 class StackedChart {
-  run(element, stageData, methodName, dataChart, callback) {
-    const data = stageData[methodName]();
+  constructor(stageData, methodName, dataChart, svg, callback) {
+    this.stageData = stageData;
+    this.methodName = methodName;
+    this.dataChart = dataChart;
+    this.svg = d3.select(svg);
+    this.callback = callback;
+  }
 
-    const stages = stageData.getStages();
+  run() {
+    const data = this.stageData[this.methodName]();
 
-    const timeRange = stageData.getStackedTimeRange();
+    const stages = this.stageData.getStages();
+
+    const timeRange = this.stageData.getStackedTimeRange();
 
     const margin = {
       top: 20, right: 20, bottom: 50, left: 40
@@ -17,7 +25,7 @@ class StackedChart {
     const width = 960 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
 
-    const svg = d3.select(element)
+    const svg = this.svg
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
       .append('g')
@@ -31,7 +39,7 @@ class StackedChart {
       .rangeRound([height, 0])
       .domain(timeRange);
 
-    const color = dataChart.getStageColorScale();
+    const color = this.dataChart.getStageColorScale();
 
     const stack = d3.stack();
     stack.keys(stages);
@@ -117,6 +125,8 @@ class StackedChart {
       .attr('width', width)
       .attr('height', height)
       .on('mousemove', mouseMove);
+
+    const callback = this.callback;
 
     function mouseMove() {
       const xPos = d3.mouse(this)[0];

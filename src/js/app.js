@@ -39,25 +39,25 @@ const App = {
       document.getElementsByClassName('gantt-chart-graph')[0]
     );
 
-    ganttChart.setup();
-    window.gantt = ganttChart;
-    const stackedChart = new StackedChart();
-
-    stackedChart.run(
-      document.getElementsByClassName('stacked-chart-graph')[0],
+    const stackedChart = new StackedChart(
       stageData,
       'getStackedDataFormat',
       dataChart,
+      document.getElementsByClassName('stacked-chart-graph')[0],
       ganttChart.run
     );
 
-    stackedChart.run(
-      document.getElementsByClassName('critical-path-graph')[0],
+    const criticalStackedChart = new StackedChart(
       stageData,
       'getCriticalPathStackedDataFormat',
       dataChart,
+      document.getElementsByClassName('critical-path-graph')[0],
       ganttChart.run
     );
+
+    stackedChart.run();
+    criticalStackedChart.run();
+    ganttChart.setup();
 
     ganttChart.run(stageData.getLastId());
   }
