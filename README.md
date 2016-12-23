@@ -4,8 +4,8 @@ Slow builds? Want to make it faster? timing-stats shows you the different stages
 
 - [Chart Types](#chart-types)
   * [Stacked Chart](#stacked-chart)
-  * [Critical Path Chart](#critical-path-chart)
   * [Gantt Chart](#gantt-chart)
+  * [Critical Path Chart](#critical-path-chart)
 - [Data Format](#data-format)
   * [JSON Schema](#json-schema)
   * [Full Example](#full-example)
@@ -26,15 +26,19 @@ Builds are made up of many stages. Examples of stages include:
 
 The stacked chart shows you the time of all of these stages on top of each other so you can see how they relate and what stages take up the most time.
 
-## Critical Path Chart
-When you have stages that run in parallel, it may not actually matter if certain stages are slow. They may not have any impact on your overall build time. For example, you may run your linters in parallel with your unit tests. If your unit tests take 30 seconds and the linters take 20 seconds, speeding up the linters won't actually affect your build time. You should focus on improving the unit test time instead.
-
-In order to provide this information, we only show the stages that are on the critical path for the given build. In a completely sequential build, this will be the same as the regular stacked chart. For builds that utilize parallelization, this will be much more valuable.
+![Stacked Chart](images/stacked_chart.png?raw=true)
 
 ## Gantt Chart
-The stacked charts do a great job of showing you the slow parts of your builds over time. As you make improvements you can see the impact of those changes and see what might have become the new critical path. However, the stacked charts don't give good visibility into what actually happens in a build.
+The gantt chart shows the stages during a single build. This is probably the most valuable chart to understand what you can improve to speed up your build.
 
-The gantt chart will show you what things occurred and when, in a build. This is useful for understanding the parallelization and dependencies of stages.
+![Gantt Chart](images/gantt_chart.png?raw=true)
+
+## Critical Path Chart
+When you have stages that run in parallel, it may not actually matter if certain stages are slow. In the above example, speeding up the linters won't improve the overall build time.
+
+In order to visualize this information, this chart only show the stages that are on the critical path for the given build. In a completely sequential build this will be the same as the regular stacked chart. For builds that utilize parallelization, this will be much more valuable.
+
+![Critical Path Chart](images/critical_stacked_chart.png?raw=true)
 
 # Data Format
 In order to read and support many projects and data sources, we require a specific data format. The input is a JSON array of objects. Each object represents a "build".
