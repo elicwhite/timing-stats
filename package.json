@@ -29,7 +29,7 @@
     "clean:bootstrap": "rm -rf dist/css",
     "clean:gh-pages": "rm -rf node_modules/gh-pages/.cache",
     "deploy:gh-pages": "benchmark deploy:gh-pages yarn clean:gh-pages && node ./script/deploy.js",
-    "deploy:timing-data": "add-temp-timing-to-json && yarn clean:gh-pages && node ./script/add_timing_data.js",
+    "deploy:timing-data": "add-temp-timing-to-json sample_data.json && yarn clean:gh-pages && node ./script/add_timing_data.js",
     "deploy": "yarn assets && yarn deploy:gh-pages && yarn deploy:timing-data"
   }
 }
