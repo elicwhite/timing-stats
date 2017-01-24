@@ -10,7 +10,7 @@
     "eslint": "^3.12.2",
     "gh-pages": "^0.12.0",
     "mocha": "^3.2.0",
-    "timing-stats-cli": "0.5.2",
+    "timing-stats-cli": "0.5.4",
     "wealthfront-javascript": "^3.2.0",
     "webpack": "v2.2.0-rc.1",
     "webpack-dev-server": "v2.2.0-rc.0"
@@ -21,7 +21,6 @@
     "copy:css": "cp src/css/* dist/css",
     "copy": "yarn copy:sample && yarn copy:bootstrap && yarn copy:css",
     "build:js": "benchmark webpack webpack",
-    "build:sample-data": "node ./script/append_build_times.js",
     "build": "yarn build:js",
     "style": "benchmark eslint eslint script src test",
     "assets": "yarn copy && yarn build",
@@ -30,7 +29,7 @@
     "clean:bootstrap": "rm -rf dist/css",
     "clean:gh-pages": "rm -rf node_modules/gh-pages/.cache",
     "deploy:gh-pages": "benchmark deploy:gh-pages yarn clean:gh-pages && node ./script/deploy.js",
-    "deploy:timing-data": "yarn build:sample-data && yarn clean:gh-pages && node ./script/add_timing_data.js",
+    "deploy:timing-data": "add-temp-timing-to-json && yarn clean:gh-pages && node ./script/add_timing_data.js",
     "deploy": "yarn assets && yarn deploy:gh-pages && yarn deploy:timing-data"
   }
 }

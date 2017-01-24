@@ -2,6 +2,7 @@ dist/css
 dist/index.js
 dist/sample_data.json
 temporary_build_data.txt
+temp_benchmark_times.txt
 
 # Logs
 logs

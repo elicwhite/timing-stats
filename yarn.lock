@@ -2821,9 +2821,9 @@ timers-browserify@^2.0.2:
   dependencies:
     setimmediate "^1.0.4"
 
-timing-stats-cli@0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/timing-stats-cli/-/timing-stats-cli-0.5.2.tgz#59af4cdc4c8ff1623a52b4ff9709d40d2967eba2"
+timing-stats-cli@0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/timing-stats-cli/-/timing-stats-cli-0.5.4.tgz#618cf0b655b060b78fb209ede2841a201c1b2a90"
 
 to-arraybuffer@^1.0.0:
   version "1.0.1"
