@@ -2,6 +2,18 @@
 
 const d3 = require('d3');
 
+function throttle(func, delay) {
+  let lastRun;
+
+  return function innerFunc() {
+    const now = Date.now();
+    if (!lastRun || now - lastRun > delay) {
+      lastRun = now;
+      func.apply(null, Array.from(arguments));
+    }
+  };
+}
+
 class StackedChart {
   constructor(stageData, methodName, dataChart, svg, callback) {
     this.stageData = stageData;
@@ -126,7 +138,7 @@ class StackedChart {
       .attr('height', height)
       .on('mousemove', mouseMove);
 
-    const callback = this.callback;
+    const callback = throttle(this.callback, 300);
 
     function mouseMove() {
       const xPos = d3.mouse(this)[0];
