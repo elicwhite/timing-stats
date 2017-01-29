@@ -6,3 +6,7 @@
   fill: none;
   pointer-events: all;
 }
+
+#json-url {
+  width: 500px;
+}
