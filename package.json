@@ -12,7 +12,7 @@
     "mocha": "^3.2.0",
     "timing-stats-cli": "0.5.4",
     "wealthfront-javascript": "^3.2.0",
-    "webpack": "v2.2.0-rc.1",
+    "webpack": "2.2.1",
     "webpack-dev-server": "v2.2.0-rc.0"
   },
   "scripts": {
