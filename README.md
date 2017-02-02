@@ -2,6 +2,7 @@ timing-stats
 =============
 Slow builds? Want to make it faster? timing-stats shows you the different stages of your builds to know what can be sped up. Different charts give you different information into your builds.
 
+- [timing-stats](#timing-stats)
 - [Chart Types](#chart-types)
   * [Stacked Chart](#stacked-chart)
   * [Gantt Chart](#gantt-chart)
@@ -10,10 +11,12 @@ Slow builds? Want to make it faster? timing-stats shows you the different stages
   * [JSON Schema](#json-schema)
   * [Full Example](#full-example)
 - [Hooking up you project](#hooking-up-you-project)
-  * [Saving the timestamps throughout the build](#saving-the-timestamps-throughout-the-build)
-  * [Process build timestamp data](#process-build-timestamp-data)
-  * [Persist the timing data](#persist-the-timing-data)
-  * [Measure your build](#measure-your-build)
+  * [The recommended way](#the-recommended-way)
+  * [The manual way](#the-manual-way)
+    + [Saving the timestamps throughout the build](#saving-the-timestamps-throughout-the-build)
+    + [Process build timestamp data](#process-build-timestamp-data)
+    + [Persist the timing data](#persist-the-timing-data)
+    + [Measure your build](#measure-your-build)
   * [Integrated approaches](#integrated-approaches)
 
 # Chart Types
@@ -95,7 +98,11 @@ This web application monitors its own build and deployment process, reporting ba
 # Hooking up you project
 In order to get these visualizations for your project, you need to gather the start and end times for the stages in your build. The way you do this does not matter as long as the output data is in the correct format.
 
-After implementing this for a few different projects in a few different languages we can provide a recommendations for getting started quickly. This project measures its own build stages, so you can look at the `scripts` in `package.json` file to read the code.
+## The recommended way
+We recommend using [timing-stats-cli](https://github.com/TheSavior/timing-stats-cli) for the smoothest approach to benchmark your stages.
+
+## The manual way
+After instrumenting a few different projects in a few different languages we have found a common approach to benchmarking stages. [timing-stats-cli](https://github.com/TheSavior/timing-stats-cli) implements this approach, but may not work for all use cases. Following the steps below, you may find an approach that works better for more complicated circumstances.
 
 There are a few steps to gathering the data we need.
  * Save the start and end timestamps throughout the process of a build
@@ -103,24 +110,22 @@ There are a few steps to gathering the data we need.
  * Persist the data somewhere
  * Measure your build
 
-## Saving the timestamps throughout the build
+### Saving the timestamps throughout the build
 I've found the easiest way to do this is to create a simple script that will append a line to a text file. A line in this file might look something like this:
 
 ```
 START::my stage::1481968299009
 ```
 
-You can see an example of a script like this [here](script/timing.js).
+### Process build timestamp data
+At the end of the build, once all of the stages have been written to the text file we want to convert the data into the final JSON form. This script should parse the lines and group the start and stop times for a given stage.
 
-## Process build timestamp data
-At the end of the build, once all of the stages have been written to the text file we want to convert the data into the final JSON form. This script should parse the lines and group the start and stop times for a given stage. You can see an example of a script like this [here](script/append_build_times.js).
-
-## Persist the timing data
+### Persist the timing data
 Once we have the timing information in the right json format, we need to save it somewhere. You may choose to upload it to something like S3 or just commit it back to the repo.
 
-This project commits it back to the repo on successful master builds.
+This project commits its own timing information back to the repo on successful master builds.
 
-## Measure your build
+### Measure your build
 Now that you have a script to process the time your stages take, we need to measure the stages. Imagine you started with a `scripts` command in your `package.json` that looks like this:
 
 ```
@@ -142,6 +147,6 @@ We will change this to call our timing script before and after eslint:
 ```
 
 ## Integrated approaches
-Measuring individual stages in your `package.json` is fine for getting started. Tools can help you do this in an automated way.
+Measuring individual stages in your `package.json`, `Makefile`, or equivelent is fine for getting started. Tools can help you do this in an automated way.
 
  * [grunt-before-after-hooks](https://github.com/TheSavior/grunt-before-after-hooks) provides a way to call a script before and after each task.
