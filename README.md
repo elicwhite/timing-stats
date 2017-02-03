@@ -15,8 +15,9 @@ Slow builds? Want to make it faster? timing-stats shows you the different stages
   * [The manual way](#the-manual-way)
     + [Saving the timestamps throughout the build](#saving-the-timestamps-throughout-the-build)
     + [Process build timestamp data](#process-build-timestamp-data)
-    + [Persist the timing data](#persist-the-timing-data)
     + [Measure your build](#measure-your-build)
+    + [Persist the timing data](#persist-the-timing-data)
+    + [Visualize your build](#visualize-your-build)
   * [Integrated approaches](#integrated-approaches)
 
 # Chart Types
@@ -120,11 +121,6 @@ START::my stage::1481968299009
 ### Process build timestamp data
 At the end of the build, once all of the stages have been written to the text file we want to convert the data into the final JSON form. This script should parse the lines and group the start and stop times for a given stage.
 
-### Persist the timing data
-Once we have the timing information in the right json format, we need to save it somewhere. You may choose to upload it to something like S3 or just commit it back to the repo.
-
-This project commits its own timing information back to the repo on successful master builds.
-
 ### Measure your build
 Now that you have a script to process the time your stages take, we need to measure the stages. Imagine you started with a `scripts` command in your `package.json` that looks like this:
 
@@ -144,6 +140,18 @@ We will change this to call our timing script before and after eslint:
     "style": "my-timing-script START eslint && eslint && my-timing-script STOP eslint "
   }
 }
+```
+### Persist the timing data
+Once we have the timing information in the right json format, we need to save it somewhere. You may choose to upload it to something like S3 or just commit it back to the repo.
+
+This project commits its own timing information back to the repo on successful master builds.
+
+### Visualize your build
+If your JSON file is accessible from the internet, you can view the charts for your build by navigating to the page with the url of the json file as a query string parameter
+
+```
+http://www.eli-white.com/timing-stats/?json=URL_FOR_JSON_FILE
+http://www.eli-white.com/timing-stats/?json=https://mysite.com/timingInfo.json
 ```
 
 ## Integrated approaches
