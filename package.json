@@ -5,7 +5,7 @@
   "license": "MIT",
   "devDependencies": {
     "bootstrap": "^3.3.7",
-    "chai": "^3.5.0",
+    "chai": "^4.0.0",
     "d3": "^4.7.4",
     "eslint": "^3.12.2",
     "gh-pages": "^0.12.0",
