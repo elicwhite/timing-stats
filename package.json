@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^4.1.1",
     "chai": "^4.0.0",
     "d3": "^4.7.4",
     "eslint": "^3.12.2",
