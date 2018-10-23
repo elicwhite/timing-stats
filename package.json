@@ -13,7 +13,7 @@
     "timing-stats-cli": "^0.6.0",
     "wealthfront-javascript": "^4.0.0",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0"
+    "webpack-dev-server": "^3.1.10"
   },
   "scripts": {
     "copy:sample": "benchmark copy:sample cp sample_data.json dist/",
